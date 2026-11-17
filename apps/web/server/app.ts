@@ -13,6 +13,9 @@ import { realtime as realtimeDefinition } from '@/realtime/handler.server';
 export const app = express();
 
 app.disable('x-powered-by');
+app.get('/__horizons/health', (_req, res) => {
+	res.status(200).json({ status: 'ok' });
+});
 app.use(
 	createRequestHandler({
 		build: () => import('virtual:react-router/server-build'),
