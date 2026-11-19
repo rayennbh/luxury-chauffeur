@@ -11,6 +11,7 @@ import { Reservations } from "@/components/home/reservations";
 import { cannesPhotos } from "@/data/cannes";
 import { monacoHero } from "@/data/monaco";
 import { photos } from "@/data/riviera";
+import { airportTransfers } from "@/data/airport-transfers";
 
 type Destination = {
   name: string;
@@ -387,6 +388,15 @@ export default function DestinationPage() {
             {NICE_AIRPORT_TO_CANNES_TITLE} ↗
           </a>
         )}
+        {airportTransfers
+          .filter(({ pickupPath, destinationPath }) => pickupPath === pathname || destinationPath === pathname)
+          .map(({ slug, title }) => (
+            <div key={slug}>
+              <a className="destination-text-link" href={`/${slug}`}>
+                {title} ↗
+              </a>
+            </div>
+          ))}
       </section>
 
       {pathname === "/cannes" && <CannesGallery />}

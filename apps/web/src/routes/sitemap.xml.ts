@@ -1,6 +1,7 @@
 import type { Route } from './+types/sitemap.xml';
 import { siteOrigin } from '@/lib/site-origin.server';
 import { NICE_AIRPORT_TO_CANNES_PATH } from '@/constants/transfer-routes';
+import { airportTransfers } from '@/data/airport-transfers';
 
 type SitemapEntry = {
 	path: string;
@@ -15,6 +16,7 @@ const STATIC_PATHS = [
 	"/nice",
 	"/saint-tropez",
 	"/courchevel",
+	...airportTransfers.map(({ slug }) => `/${slug}`),
 ];
 
 function escapeXml(value: string): string {
