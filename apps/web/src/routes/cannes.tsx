@@ -6,12 +6,11 @@ import {
   NICE_AIRPORT_TO_CANNES_PATH,
   NICE_AIRPORT_TO_CANNES_TITLE,
 } from "@/constants/transfer-routes";
-import { CannesGallery } from "@/components/cannes/gallery";
-import { Reservations } from "@/components/home/reservations";
+import { DestinationGallery } from "@/components/cannes/gallery";
 import { cannesPhotos } from "@/data/cannes";
-import { monacoHero } from "@/data/monaco";
-import { photos } from "@/data/riviera";
+import { destinationPhotography, type DestinationPhoto } from "@/data/destination-photos";
 import { airportTransfers } from "@/data/airport-transfers";
+import "./destination-photography.css";
 
 type Destination = {
   name: string;
@@ -21,15 +20,6 @@ type Destination = {
   services: [string, string][];
   routes: string[];
   note: string;
-};
-
-type DestinationImage = {
-  src: string;
-  alt: string;
-  author?: string;
-  source?: string;
-  license?: string;
-  licenseUrl?: string;
 };
 
 const destinations: Record<string, Destination> = {
@@ -204,44 +194,23 @@ const destinations: Record<string, Destination> = {
   },
 };
 
-const destinationImages: Record<string, DestinationImage> = {
-  "/cannes": {
-    src: cannesPhotos[0].src,
-    alt: "Illustrative view of La Croisette in Cannes",
-  },
-
-  "/monaco": {
-    src: monacoHero,
-    alt: "Illustrative view of Monaco and Monte-Carlo",
-  },
-
-  "/nice": {
-    src: photos[0].src,
-    alt: "Illustrative view of Nice on the French Riviera",
-  },
-
-  "/saint-tropez": {
-    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Saint-Tropez_Le_port_01.jpg/1280px-Saint-Tropez_Le_port_01.jpg",
-    alt: "Panoramic view of the port of Saint-Tropez",
-    author: "François de Dijon",
-    source:
-      "https://commons.wikimedia.org/wiki/File:Saint-Tropez_Le_port_01.jpg",
-    license: "CC BY-SA 4.0",
-    licenseUrl:
-      "https://creativecommons.org/licenses/by-sa/4.0/",
-  },
-
-  "/courchevel": {
-    src: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Courchevel-ski-resort-1850.jpg",
-    alt: "Courchevel 1850 ski resort",
-    author: "Micigata",
-    source:
-      "https://commons.wikimedia.org/wiki/File:Courchevel-ski-resort-1850.jpg",
-    license: "CC0",
-    licenseUrl:
-      "https://creativecommons.org/publicdomain/zero/1.0/",
-  },
+const cannesHero: DestinationPhoto = {
+  src: cannesPhotos[0].src,
+  width: 1600,
+  height: 900,
+  alt: "Illustrative view of La Croisette in Cannes",
 };
+
+function photoCredit(credit: NonNullable<DestinationPhoto["credit"]>) {
+  return (
+    <>
+      Photo by <a href={credit.source}>{credit.author}</a>
+      {" · "}
+      <a href={credit.licenseUrl}>{credit.license}</a>
+      {" · Resized and cropped for display"}
+    </>
+  );
+}
 
 export function meta(args: SeoArgs) {
   const page =
@@ -250,7 +219,9 @@ export function meta(args: SeoArgs) {
   return seo(args, {
     title: page.title,
     description: page.description,
-    image: destinationImages[args.location.pathname]?.src,
+    image: (args.location.pathname === "/cannes"
+      ? cannesHero
+      : destinationPhotography[args.location.pathname]?.hero)?.src,
     path: args.location.pathname,
   });
 }
@@ -261,7 +232,9 @@ export default function DestinationPage() {
   const page =
     destinations[pathname] ?? destinations["/cannes"];
 
-  const heroPhoto = destinationImages[pathname];
+  const photography = destinationPhotography[pathname];
+  const heroPhoto = pathname === "/cannes" ? cannesHero : photography?.hero;
+  const landmark = photography?.landmark;
 
   const bookingHref =
     "/?destination=" + encodeURIComponent(page.name) + "#booking";
@@ -287,8 +260,8 @@ export default function DestinationPage() {
             className="destination-hero-photo"
             src={heroPhoto.src}
             alt={heroPhoto.alt}
-            width={1600}
-            height={900}
+            width={heroPhoto.width}
+            height={heroPhoto.height}
             fetchPriority="high"
             decoding="async"
             onError={(event) => {
@@ -330,25 +303,9 @@ export default function DestinationPage() {
         </div>
       </section>
 
-      {heroPhoto?.author && (
+      {heroPhoto?.credit && (
         <p className="destination-photo-credit destination-container">
-          Photo:{" "}
-          <a
-            href={heroPhoto.source}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {heroPhoto.author}
-          </a>
-          {" · "}
-          <a
-            href={heroPhoto.licenseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {heroPhoto.license}
-          </a>
-          {" · Image cropped to fit the banner."}
+          {photoCredit(heroPhoto.credit)}
         </p>
       )}
 
@@ -399,7 +356,28 @@ export default function DestinationPage() {
           ))}
       </section>
 
-      {pathname === "/cannes" && <CannesGallery />}
+      {landmark ? (
+        <DestinationGallery
+          name={page.name}
+          description={landmark.description}
+          photos={[{
+            ...landmark.photo,
+            title: landmark.title,
+            caption: landmark.photo.alt,
+            credit: landmark.photo.credit && photoCredit(landmark.photo.credit),
+          }]}
+        />
+      ) : pathname === "/cannes" && (
+        <DestinationGallery
+          name={page.name}
+          description="La Croisette, the Palais des Festivals and Le Suquet. Discover the city before your next transfer."
+          photos={cannesPhotos.map((photo) => ({
+            ...photo,
+            srcSet: `${photo.src}?width=375 375w, ${photo.src}?width=768 768w, ${photo.src} ${photo.width}w`,
+          }))}
+          note="Cannes scenery · illustrative images"
+        />
+      )}
 
       <section className="destination-section destination-soft">
         <div className="destination-container">
@@ -427,39 +405,6 @@ export default function DestinationPage() {
           </a>
         </div>
       </section>
-
-      {pathname !== "/cannes" && (
-        <section className="destination-section destination-container">
-          <h2>Before you book</h2>
-
-          <details className="destination-faq">
-            <summary>
-              How do I request a chauffeur in {page.name}?
-            </summary>
-
-            <p>
-              Use our booking enquiry form or contact us on WhatsApp.
-              Include the pickup and destination, date, time,
-              passengers, luggage and preferred vehicle. We will
-              review your request and provide a quotation.
-            </p>
-          </details>
-
-          <details className="destination-faq">
-            <summary>
-              Is my booking confirmed when I submit the form?
-            </summary>
-
-            <p>
-              No. Availability, the final price and pickup arrangements
-              must be confirmed separately by our team. No online
-              payment is taken through this enquiry form.
-            </p>
-          </details>
-        </section>
-      )}
-
-      {pathname === "/monaco" && <Reservations />}
 
       <section className="destination-section destination-cta">
         <div className="destination-container">
