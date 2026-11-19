@@ -6,8 +6,7 @@ import {
   NICE_AIRPORT_TO_CANNES_PATH,
   NICE_AIRPORT_TO_CANNES_TITLE,
 } from "@/constants/transfer-routes";
-import { CannesGallery } from "@/components/cannes/gallery";
-import { Reservations } from "@/components/home/reservations";
+import { DestinationGallery } from "@/components/cannes/gallery";
 import { cannesPhotos } from "@/data/cannes";
 import { destinationPhotography, type DestinationPhoto } from "@/data/destination-photos";
 import { airportTransfers } from "@/data/airport-transfers";
@@ -357,30 +356,27 @@ export default function DestinationPage() {
           ))}
       </section>
 
-      {pathname === "/cannes" && <CannesGallery />}
-
-      {landmark && (
-        <section className="destination-landmark destination-container" aria-labelledby="destination-landmark-title">
-          <figure>
-            <img
-              src={landmark.photo.src}
-              alt={landmark.photo.alt}
-              width={landmark.photo.width}
-              height={landmark.photo.height}
-              loading="lazy"
-              decoding="async"
-            />
-            {landmark.photo.credit && (
-              <figcaption className="destination-photo-credit">
-                {photoCredit(landmark.photo.credit)}
-              </figcaption>
-            )}
-          </figure>
-          <div className="destination-landmark-copy">
-            <h2 id="destination-landmark-title">{landmark.title}</h2>
-            <p>{landmark.description}</p>
-          </div>
-        </section>
+      {landmark ? (
+        <DestinationGallery
+          name={page.name}
+          description={landmark.description}
+          photos={[{
+            ...landmark.photo,
+            title: landmark.title,
+            caption: landmark.photo.alt,
+            credit: landmark.photo.credit && photoCredit(landmark.photo.credit),
+          }]}
+        />
+      ) : pathname === "/cannes" && (
+        <DestinationGallery
+          name={page.name}
+          description="La Croisette, the Palais des Festivals and Le Suquet. Discover the city before your next transfer."
+          photos={cannesPhotos.map((photo) => ({
+            ...photo,
+            srcSet: `${photo.src}?width=375 375w, ${photo.src}?width=768 768w, ${photo.src} ${photo.width}w`,
+          }))}
+          note="Cannes scenery · illustrative images"
+        />
       )}
 
       <section className="destination-section destination-soft">
@@ -409,39 +405,6 @@ export default function DestinationPage() {
           </a>
         </div>
       </section>
-
-      {pathname !== "/cannes" && (
-        <section className="destination-section destination-container">
-          <h2>Before you book</h2>
-
-          <details className="destination-faq">
-            <summary>
-              How do I request a chauffeur in {page.name}?
-            </summary>
-
-            <p>
-              Use our booking enquiry form or contact us on WhatsApp.
-              Include the pickup and destination, date, time,
-              passengers, luggage and preferred vehicle. We will
-              review your request and provide a quotation.
-            </p>
-          </details>
-
-          <details className="destination-faq">
-            <summary>
-              Is my booking confirmed when I submit the form?
-            </summary>
-
-            <p>
-              No. Availability, the final price and pickup arrangements
-              must be confirmed separately by our team. No online
-              payment is taken through this enquiry form.
-            </p>
-          </details>
-        </section>
-      )}
-
-      {pathname === "/monaco" && <Reservations />}
 
       <section className="destination-section destination-cta">
         <div className="destination-container">
