@@ -4,11 +4,14 @@ import {
 	route,
 } from "@react-router/dev/routes";
 
+import { NICE_AIRPORT_TO_CANNES_PATH } from "./constants/transfer-routes";
+
 export default [
 	index("routes/home.tsx"),
 
 	route("monaco", "routes/monaco.tsx"),
 	route("cannes", "routes/cannes.tsx"),
+	route(NICE_AIRPORT_TO_CANNES_PATH.slice(1), "routes/nice-airport-to-cannes.tsx"),
 
 	route("nice", "routes/cannes.tsx", {
 		id: "nice",

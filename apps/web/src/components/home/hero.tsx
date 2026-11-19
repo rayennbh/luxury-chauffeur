@@ -112,6 +112,10 @@ const destinationPaths: Record<string, string> = {
 
 const pageMarkup = markup
   .replace(
+    /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
+    "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",
+  )
+  .replace(
     /<button data-destination="([^"]+)">([\s\S]*?)<\/button>/g,
     (_, name: string, content: string) =>
       '<a href="' +
@@ -399,13 +403,16 @@ const document = {
 };
 
   const $ = (id: string) => document.getElementById(id); let mode = "transfer", preferred = DEFAULT_VEHICLE;
-  const requestedDestination = new URLSearchParams(
-    window.location.search,
-  ).get("destination");
+  const bookingParams = new URLSearchParams(window.location.search);
+  const requestedPickup = bookingParams.get("pickup");
+  const requestedDestination = bookingParams.get("destination");
 
+  if (requestedPickup && requestedPickup.length <= $("pickup").maxLength) {
+    $("pickup").value = requestedPickup;
+  }
   if (
     requestedDestination &&
-    requestedDestination.length <= 180
+    requestedDestination.length <= $("dropoff").maxLength
   ) {
     $("dropoff").value = requestedDestination;
   }
