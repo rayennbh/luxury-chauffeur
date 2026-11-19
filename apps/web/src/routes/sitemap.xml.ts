@@ -1,5 +1,6 @@
 import type { Route } from './+types/sitemap.xml';
 import { siteOrigin } from '@/lib/site-origin.server';
+import { NICE_AIRPORT_TO_CANNES_PATH } from '@/constants/transfer-routes';
 
 type SitemapEntry = {
 	path: string;
@@ -10,6 +11,7 @@ const STATIC_PATHS = [
 	"/",
 	"/monaco",
 	"/cannes",
+	NICE_AIRPORT_TO_CANNES_PATH,
 	"/nice",
 	"/saint-tropez",
 	"/courchevel",

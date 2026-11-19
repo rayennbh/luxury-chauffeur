@@ -2,6 +2,10 @@ import { useLocation } from "react-router";
 import { seo, type SeoArgs } from "@/lib/seo";
 import { whatsappUrl, mailtoHref } from "@/lib/contact-links";
 import { WHATSAPP_NUMBER, CONTACT_EMAIL } from "@/constants/site";
+import {
+  NICE_AIRPORT_TO_CANNES_PATH,
+  NICE_AIRPORT_TO_CANNES_TITLE,
+} from "@/constants/transfer-routes";
 import { CannesGallery } from "@/components/cannes/gallery";
 import { Reservations } from "@/components/home/reservations";
 import { cannesPhotos } from "@/data/cannes";
@@ -377,6 +381,12 @@ export default function DestinationPage() {
             </article>
           ))}
         </div>
+
+        {(pathname === "/cannes" || pathname === "/nice") && (
+          <a className="destination-text-link" href={NICE_AIRPORT_TO_CANNES_PATH}>
+            {NICE_AIRPORT_TO_CANNES_TITLE} ↗
+          </a>
+        )}
       </section>
 
       {pathname === "/cannes" && <CannesGallery />}
@@ -401,7 +411,7 @@ export default function DestinationPage() {
 
           <a
             className="destination-text-link"
-            href="/#vehicules"
+            href="/#fleet"
           >
             Explore our full fleet ↗
           </a>
