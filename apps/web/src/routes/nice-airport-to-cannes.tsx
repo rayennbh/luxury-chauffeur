@@ -1,3 +1,4 @@
+import { AirportTransferFaq } from "@/components/airport-transfer-faq";
 import {
   NICE_AIRPORT_TO_CANNES_PATH,
   NICE_AIRPORT_TO_CANNES_TITLE,
@@ -73,48 +74,14 @@ export default function NiceAirportToCannes() {
         <a className="destination-text-link" href="/#fleet">Explore the vehicle options ↗</a>
       </section>
 
-      <section className="destination-section destination-soft">
-        <div className="destination-container">
-          <h2>Before you book</h2>
-          <details className="destination-faq">
-            <summary>How much does a private transfer from Nice Airport to Cannes cost?</summary>
-            <p>
-              After you send your request, your chauffeur will discuss your trip
-              with you and confirm the fare.
-            </p>
-          </details>
-          <details className="destination-faq">
-            <summary>Where will I meet my chauffeur at Nice Airport?</summary>
-            <p>
-              Share your flight number and arrival time when you request a transfer.
-              Your chauffeur will agree on a meeting point with you based on your
-              arrival details.
-            </p>
-          </details>
-          <details className="destination-faq">
-            <summary>What if my flight is delayed?</summary>
-            <p>
-              If your flight is delayed, contact your chauffeur to discuss a new
-              pickup time and confirm any waiting arrangements.
-            </p>
-          </details>
-          <details className="destination-faq">
-            <summary>How much luggage can I bring?</summary>
-            <p>
-              Tell us how many passengers and bags you’re travelling with, including
-              any oversized items. Your chauffeur will confirm which vehicle suits
-              your group and luggage.
-            </p>
-          </details>
-          <details className="destination-faq">
-            <summary>Can I request a return transfer to Nice Airport?</summary>
-            <p>
-              Yes. Include the pickup address in Cannes and your departure flight time
-              in your enquiry so the return journey can be quoted separately.
-            </p>
-          </details>
-        </div>
-      </section>
+      <AirportTransferFaq
+        airportName="Nice Airport"
+        destination="Cannes"
+        additionalQuestions={[{
+          question: "Can I request a return transfer to Nice Airport?",
+          answer: "Yes. Include the pickup address in Cannes and your departure flight time in your enquiry so the return journey can be quoted separately.",
+        }]}
+      />
 
       <nav className="destination-links destination-container" aria-label="Related chauffeur services">
         <a href="/nice">Nice Airport transfers</a>
