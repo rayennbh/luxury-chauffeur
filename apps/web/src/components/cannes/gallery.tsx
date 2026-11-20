@@ -25,7 +25,7 @@ export function DestinationGallery({ name, description, photos, note }: GalleryP
   const current = photos[carousel.index];
 
   return (
-    <section id="galerie" className={photos.length === 1 ? "gallery section-rail destination-gallery-single" : "gallery section-rail"}>
+    <section id="galerie" className="gallery section-rail">
       <div className="section-heading">
         <div>
           <h2>

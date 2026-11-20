@@ -10,7 +10,6 @@ import { DestinationGallery } from "@/components/cannes/gallery";
 import { cannesPhotos } from "@/data/cannes";
 import { destinationPhotography, type DestinationPhoto } from "@/data/destination-photos";
 import { airportTransfers } from "@/data/airport-transfers";
-import "./destination-photography.css";
 
 type Destination = {
   name: string;
@@ -216,12 +215,13 @@ export function meta(args: SeoArgs) {
   const page =
     destinations[args.location.pathname] ?? destinations["/cannes"];
 
+  const photography = destinationPhotography[args.location.pathname];
+  const hero = photography ? photography.photos[photography.heroIndex] : cannesHero;
+
   return seo(args, {
     title: page.title,
     description: page.description,
-    image: (args.location.pathname === "/cannes"
-      ? cannesHero
-      : destinationPhotography[args.location.pathname]?.hero)?.src,
+    image: hero.src,
     path: args.location.pathname,
   });
 }
@@ -233,8 +233,7 @@ export default function DestinationPage() {
     destinations[pathname] ?? destinations["/cannes"];
 
   const photography = destinationPhotography[pathname];
-  const heroPhoto = pathname === "/cannes" ? cannesHero : photography?.hero;
-  const landmark = photography?.landmark;
+  const heroPhoto = photography ? photography.photos[photography.heroIndex] : cannesHero;
 
   const bookingHref =
     "/?destination=" + encodeURIComponent(page.name) + "#booking";
@@ -356,16 +355,15 @@ export default function DestinationPage() {
           ))}
       </section>
 
-      {landmark ? (
+      {photography ? (
         <DestinationGallery
           name={page.name}
-          description={landmark.description}
-          photos={[{
-            ...landmark.photo,
-            title: landmark.title,
-            caption: landmark.photo.alt,
-            credit: landmark.photo.credit && photoCredit(landmark.photo.credit),
-          }]}
+          description={photography.description}
+          photos={photography.photos.map(({ credit, ...photo }) => ({
+            ...photo,
+            caption: photo.alt,
+            credit: credit && photoCredit(credit),
+          }))}
         />
       ) : pathname === "/cannes" && (
         <DestinationGallery
