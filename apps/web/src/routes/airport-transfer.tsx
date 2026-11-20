@@ -1,4 +1,5 @@
 import { useLocation } from "react-router";
+import { AirportTransferFaq } from "@/components/airport-transfer-faq";
 import { WHATSAPP_NUMBER } from "@/constants/site";
 import { airportTransfers } from "@/data/airport-transfers";
 import { whatsappUrl } from "@/lib/contact-links";
@@ -65,17 +66,11 @@ export default function AirportTransferPage() {
         <a className="destination-text-link" href="/#fleet">Explore the vehicle options ↗</a>
       </section>
 
-      <section className="destination-section destination-soft">
-        <div className="destination-container">
-          <h2>Before you book</h2>
-          {transfer.questions.map(({ question, answer }) => (
-            <details className="destination-faq" key={question}>
-              <summary>{question}</summary>
-              <p>{answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      <AirportTransferFaq
+        airportName={transfer.airportName}
+        destination={transfer.destination}
+        additionalQuestions={transfer.questions}
+      />
 
       <nav className="destination-links destination-container" aria-label="Related chauffeur services">
         {transfer.pickupPath && <a href={transfer.pickupPath}>Nice Airport transfers</a>}

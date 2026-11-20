@@ -1,25 +1,31 @@
+import type { TransferQuestion } from "@/components/airport-transfer-faq";
+
 type AirportTransfer = {
   slug: string;
   title: string;
   description: string;
   pickup: string;
+  airportName: string;
   pickupPath?: string;
   destination: string;
   destinationPath: string;
   intro: string;
   arrival: { heading: string; details: string };
   luggage: string;
-  questions: { question: string; answer: string }[];
+  questions: TransferQuestion[];
 };
 
-const niceAirport = "Nice Côte d’Azur Airport (NCE)";
+const niceAirport = {
+  pickup: "Nice Côte d’Azur Airport (NCE)",
+  airportName: "Nice Airport",
+};
 
 export const airportTransfers: AirportTransfer[] = [
   {
     slug: "nice-airport-to-monaco",
     title: "Nice Airport to Monaco Private Transfer",
     description: "Request a private transfer from Nice Airport to Monaco. Plan a hotel drop-off in Monte-Carlo or a pickup for a return flight with Luxury Chauffeur.",
-    pickup: niceAirport,
+    ...niceAirport,
     pickupPath: "/nice",
     destination: "Monaco",
     destinationPath: "/monaco",
@@ -44,7 +50,7 @@ export const airportTransfers: AirportTransfer[] = [
     slug: "nice-airport-to-saint-tropez",
     title: "Nice Airport to Saint-Tropez Private Transfer",
     description: "Request a private chauffeur from Nice Airport to Saint-Tropez, Ramatuelle or Pampelonne. Share your flight and drop-off details for a quote.",
-    pickup: niceAirport,
+    ...niceAirport,
     pickupPath: "/nice",
     destination: "Saint-Tropez",
     destinationPath: "/saint-tropez",
@@ -70,6 +76,7 @@ export const airportTransfers: AirportTransfer[] = [
     title: "Geneva Airport to Courchevel Private Transfer",
     description: "Request a private chauffeur from Geneva Airport to your Courchevel hotel or chalet. Include your flight, luggage and ski equipment for a quote.",
     pickup: "Geneva Airport (GVA)",
+    airportName: "Geneva Airport",
     destination: "Courchevel",
     destinationPath: "/courchevel",
     intro: "Arrange a private transfer from Geneva Airport to your hotel or chalet in Courchevel. Share your resort address and ski luggage when requesting a quote.",
