@@ -4,6 +4,11 @@ import { seo } from "@/lib/seo";
 import { Hero } from "@/components/home/hero";
 
 
+export const links: Route.LinksFunction = () => [
+  { rel: "preload", as: "image", href: "/images/home/hero-mobile.webp", media: "(width < 768px)" },
+  { rel: "preload", as: "image", href: "/images/home/hero-desktop.webp", media: "(width >= 768px)" },
+];
+
 export function meta({ matches, location }: Route.MetaArgs) {
   return seo(
     { matches, location },
