@@ -79,17 +79,31 @@ export default function NiceAirportToCannes() {
           <details className="destination-faq">
             <summary>How much does a private transfer from Nice Airport to Cannes cost?</summary>
             <p>
-              Request a quote with your travel date, drop-off address, passenger count
-              and luggage. Review the final fare and any applicable waiting charges
-              with our team before confirming.
+              After you send your request, your chauffeur will discuss your trip
+              with you and confirm the fare.
+            </p>
+          </details>
+          <details className="destination-faq">
+            <summary>Where will I meet my chauffeur at Nice Airport?</summary>
+            <p>
+              Share your flight number and arrival time when you request a transfer.
+              Your chauffeur will agree on a meeting point with you based on your
+              arrival details.
             </p>
           </details>
           <details className="destination-faq">
             <summary>What if my flight is delayed?</summary>
             <p>
-              Include your flight number when you enquire and ask what waiting time
-              can be arranged. If your arrival details change, contact our team to
-              confirm the updated pickup arrangements.
+              If your flight is delayed, contact your chauffeur to discuss a new
+              pickup time and confirm any waiting arrangements.
+            </p>
+          </details>
+          <details className="destination-faq">
+            <summary>How much luggage can I bring?</summary>
+            <p>
+              Tell us how many passengers and bags you’re travelling with, including
+              any oversized items. Your chauffeur will confirm which vehicle suits
+              your group and luggage.
             </p>
           </details>
           <details className="destination-faq">
@@ -110,7 +124,7 @@ export default function NiceAirportToCannes() {
       <section className="destination-section destination-cta">
         <div className="destination-container">
           <h2>Get a quote for your transfer to Cannes</h2>
-          <p>Availability and your final fare are confirmed separately by our team.</p>
+          <p>Availability and your final fare are confirmed after you send your request.</p>
           <div className="destination-actions">
             <a className="destination-button" href={bookingHref}>Request a Transfer Quote ↗</a>
           </div>
