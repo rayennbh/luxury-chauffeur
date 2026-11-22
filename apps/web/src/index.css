@@ -1491,3 +1491,48 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
     background-image: url("/images/home/hero-mobile.webp");
   }
 }
+
+.language-menu { position: relative; flex: none; }
+.language-menu summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+.language-menu summary::-webkit-details-marker { display: none; }
+.language-menu summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.language-menu-panel {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  right: 0;
+  width: 190px;
+  padding: 8px;
+  border: 1px solid #e5dce2;
+  border-radius: 10px;
+  background: #fff;
+  color: #211a24;
+  box-shadow: 0 8px 24px #170d2030;
+}
+.language-menu-panel ul { list-style: none; margin: 0; padding: 0; }
+.language-menu-panel a { display: flex; align-items: center; min-height: 44px; padding: 0 10px; border-radius: 5px; }
+.language-menu-panel a:hover, .language-menu-panel a:focus-visible { background: #f6edf3; }
+.language-menu-panel a[aria-current] { font-weight: 700; }
+.language-menu-panel p { margin: 7px 10px 3px; font-size: 11px; line-height: 1.4; }
+@media (max-width: 900px) {
+  .luxury-home .language-menu { margin-left: auto; }
+  .luxury-home .header-inner > .menu { margin-left: 0; }
+}
+@media (max-width: 620px) {
+  .luxury-home .header-inner { gap: 8px; }
+  .luxury-home .language-menu summary span { display: none; }
+}
+@media (max-width: 440px) {
+  .site-header .header-actions { gap: 4px; margin-left: auto; }
+  .site-header .header-whatsapp span { display: none; }
+}
