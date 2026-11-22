@@ -2,6 +2,10 @@
   position: relative;
   z-index: 3;
   flex: none;
+  font-family: 'Manrope', Arial, sans-serif;
+}
+.site-language-menu button {
+  font-family: inherit;
 }
 .site-language-menu .site-language-trigger {
   display: inline-flex;
@@ -18,11 +22,6 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 1.2;
-}
-.luxury-home .site-language-menu .site-language-trigger {
-  border-color: #6e5f74;
-  background: #29212d;
-  color: #fff;
 }
 .site-language-trigger[aria-expanded="true"] .site-language-chevron {
   transform: rotate(180deg);
@@ -69,9 +68,6 @@
   outline: 2px solid #b40f59;
   outline-offset: 2px;
 }
-.luxury-home .site-language-menu .site-language-trigger:focus-visible {
-  outline-color: #ff84b5;
-}
 .site-language-error {
   width: 13rem;
   padding: 10px;
@@ -88,13 +84,11 @@
 }
 @media (max-width: 620px) {
   .luxury-home .header-inner { gap: 8px; }
-  .luxury-home .site-language-trigger > span,
-  .luxury-home .site-language-chevron { display: none; }
 }
 @media (max-width: 440px) {
   .site-header { gap: 8px; }
   .site-header .header-actions { gap: 4px; margin-inline-start: auto; }
   .site-header .header-whatsapp span,
-  .site-header .site-language-trigger > span,
-  .site-header .site-language-chevron { display: none; }
+  .site-language-trigger > span,
+  .site-language-chevron { display: none; }
 }
