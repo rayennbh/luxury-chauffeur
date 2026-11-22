@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Globe } from "lucide-react";
+import { Check, ChevronDown, Globe } from "lucide-react";
+import { useDisclosure } from "@/hooks/use-disclosure";
 import { isLanguage, languageNames, type Language, type LanguageSettings } from "./languages";
 import { createDocumentTranslator, type Catalog } from "./translate-document";
 
@@ -91,27 +92,56 @@ export function SiteLanguageProvider({ settings, children }: { settings: Languag
 
 export function SiteLanguageMenu() {
   const state = useContext(LanguageContext);
+  const disclosure = useDisclosure();
+  const trigger = useRef<HTMLButtonElement | null>(null);
   if (!state || state.enabledLanguages.length < 2) return null;
 
   return (
-    <label className="site-language-menu" translate="no">
-      <Globe size={19} aria-hidden="true" />
-      <span aria-hidden="true">{state.language.toUpperCase()}</span>
-      <select
-        aria-label={languageLabels[state.language]}
-        value={state.language}
-        onChange={(event) => {
-          const language = event.currentTarget.value;
-          if (isLanguage(language)) state.chooseLanguage(language);
+    <div
+      className="site-language-menu"
+      translate="no"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) disclosure.close();
+      }}
+    >
+      <button
+        type="button"
+        className="site-language-trigger"
+        {...disclosure.triggerProps}
+        ref={(node) => {
+          trigger.current = node;
+          disclosure.triggerProps.ref(node);
         }}
+        aria-label={languageLabels[state.language]}
       >
-        {state.enabledLanguages.map((code) => (
-          <option key={code} value={code} lang={code}>{languageNames[code]}</option>
-        ))}
-      </select>
+        <Globe size={18} aria-hidden="true" />
+        <span aria-hidden="true">{state.language.toUpperCase()}</span>
+        <ChevronDown className="site-language-chevron" size={13} aria-hidden="true" />
+      </button>
+      {disclosure.isOpen && (
+        <ul className="site-language-panel" {...disclosure.panelProps}>
+          {state.enabledLanguages.map((code) => (
+            <li key={code}>
+              <button
+                type="button"
+                lang={code}
+                aria-pressed={state.language === code}
+                onClick={() => {
+                  state.chooseLanguage(code);
+                  disclosure.close();
+                  trigger.current?.focus();
+                }}
+              >
+                <span dir="auto">{languageNames[code]}</span>
+                {state.language === code && <Check size={16} aria-hidden="true" />}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
       {state.unavailable && (
         <span className="site-language-error" role="status">Translation unavailable. Please try again.</span>
       )}
-    </label>
+    </div>
   );
 }
