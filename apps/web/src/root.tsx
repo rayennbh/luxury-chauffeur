@@ -1,5 +1,6 @@
 import {
   data,
+  useLoaderData,
   useLocation,
   isRouteErrorResponse,
   Links,
@@ -10,6 +11,8 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import stylesheet from "@/index.css?url";
+import { readLanguageSettings } from "@/i18n/languages.server";
+import { SiteLanguageProvider } from "@/i18n/site-language";
 import { siteOrigin } from "@/lib/site-origin.server";
 import { HorizonsPreviewScripts } from "./horizons-preview-scripts";
 import { SiteHeader } from "@/components/site-header";
@@ -56,7 +59,7 @@ export function loader({ request }: Route.LoaderArgs) {
   const origin = siteOrigin(request);
 
   return data(
-    { origin },
+    { origin, languages: readLanguageSettings() },
     {
       headers: {
         Link: `<${origin}/sitemap.xml>; rel="sitemap"; type="application/xml"`,
@@ -97,9 +100,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const isHome = useLocation().pathname === "/";
+  const { languages } = useLoaderData<typeof loader>();
 
   return (
-    <>
+    <SiteLanguageProvider settings={languages}>
       {!isHome && (
         <a className="skip-link" href="#main-content">
           Skip to content
@@ -125,7 +129,7 @@ export default function App() {
         <MessageCircle size={25} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
-    </>
+    </SiteLanguageProvider>
   );
 }
 
