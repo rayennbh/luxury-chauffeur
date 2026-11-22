@@ -1,5 +1,7 @@
 import type { Route } from "./+types/home";
-import { seo } from "@/lib/seo";
+import { absoluteUrl, seo, siteOriginFrom } from "@/lib/seo";
+import { organizationId, organizationSchema, serviceSchema } from "@/lib/business-schema";
+import { businessDescription, businessName, serviceAreas } from "@/data/public-pages";
 
 import { Hero } from "@/components/home/hero";
 
@@ -22,19 +24,26 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function meta({ matches, location }: Route.MetaArgs) {
+  const args = { matches, location };
+  const origin = siteOriginFrom(matches);
   return seo(
-    { matches, location },
+    args,
     {
       title: "Luxury Chauffeur | Private Transfers on the French Riviera & Alps",
       description:
         "Luxury chauffeur transfers in Nice, Monaco, Cannes, Saint-Tropez and Courchevel. Premium Mercedes fleet, airport transfers and private chauffeur service. Request a quote.",
       jsonLd: [
+        organizationSchema(args),
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Luxury Chauffeur",
+          "@id": absoluteUrl(origin, "/#website"),
+          url: absoluteUrl(origin, "/"),
+          name: businessName,
           inLanguage: "en",
+          publisher: { "@id": organizationId(origin) },
         },
+        serviceSchema(args, "Private chauffeur services", businessDescription, serviceAreas),
       ],
     },
   );

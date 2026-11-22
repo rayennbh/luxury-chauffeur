@@ -1,4 +1,5 @@
-import { AirportTransferFaq } from "@/components/airport-transfer-faq";
+import { airportTransferQuestions, AirportTransferFaq } from "@/components/airport-transfer-faq";
+import { faqSchema, organizationSchema, serviceSchema } from "@/lib/business-schema";
 import {
   NICE_AIRPORT_TO_CANNES_PATH,
   NICE_AIRPORT_TO_CANNES_TITLE,
@@ -17,12 +18,26 @@ const whatsappHref = whatsappUrl({
   text: "Hello Luxury Chauffeur, I’d like a quote for a private transfer from Nice Airport to Cannes.",
 });
 
+const description = "Request a private transfer from Nice Côte d’Azur Airport (NCE) to your hotel, villa or event in Cannes. Share flight, passenger and luggage details for a quote.";
+const faq = {
+  airportName: "Nice Airport",
+  destination: "Cannes",
+  additionalQuestions: [{
+    question: "Can I request a return transfer to Nice Airport?",
+    answer: "Yes. Include the pickup address in Cannes and your departure flight time in your enquiry so the return journey can be quoted separately.",
+  }],
+};
+
 export function meta(args: SeoArgs) {
   return seo(args, {
     title: `${NICE_AIRPORT_TO_CANNES_TITLE} | Luxury Chauffeur`,
-    description:
-      "Request a private transfer from Nice Côte d’Azur Airport (NCE) to your hotel, villa or event in Cannes. Share flight, passenger and luggage details for a quote.",
+    description,
     path: NICE_AIRPORT_TO_CANNES_PATH,
+    jsonLd: [
+      organizationSchema(args),
+      serviceSchema(args, NICE_AIRPORT_TO_CANNES_TITLE, description, [faq.airportName, faq.destination], NICE_AIRPORT_TO_CANNES_PATH),
+      faqSchema(airportTransferQuestions(faq)),
+    ],
   });
 }
 
@@ -74,14 +89,7 @@ export default function NiceAirportToCannes() {
         <a className="destination-text-link" href="/#fleet">Explore the vehicle options ↗</a>
       </section>
 
-      <AirportTransferFaq
-        airportName="Nice Airport"
-        destination="Cannes"
-        additionalQuestions={[{
-          question: "Can I request a return transfer to Nice Airport?",
-          answer: "Yes. Include the pickup address in Cannes and your departure flight time in your enquiry so the return journey can be quoted separately.",
-        }]}
-      />
+      <AirportTransferFaq {...faq} />
 
       <nav className="destination-links destination-container" aria-label="Related chauffeur services">
         <a href="/nice">Nice Airport transfers</a>

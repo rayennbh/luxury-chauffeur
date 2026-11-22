@@ -3,6 +3,7 @@ import { hydrateRoot } from 'react-dom/client';
 import { isRouteErrorResponse } from 'react-router';
 import { HydratedRouter } from 'react-router/dom';
 import { isHydrationError, reportHydrationError } from 'virtual:horizons-runtime';
+import { registerChauffeurWebMcp } from '@/lib/webmcp.client';
 
 function onRecoverableError(error: unknown, errorInfo: { componentStack?: string }) {
 	try {
@@ -39,6 +40,8 @@ function ReportServerRouteErrors({ children }: { children: ReactNode }) {
 
 	return children;
 }
+
+void registerChauffeurWebMcp();
 
 startTransition(() => {
 	hydrateRoot(

@@ -6,8 +6,8 @@ type AirportTransferFaqProps = {
   additionalQuestions: TransferQuestion[];
 };
 
-export function AirportTransferFaq({ airportName, destination, additionalQuestions }: AirportTransferFaqProps) {
-  const questions = [
+export function airportTransferQuestions({ airportName, destination, additionalQuestions }: AirportTransferFaqProps) {
+  return [
     {
       question: `How much does a private transfer from ${airportName} to ${destination} cost?`,
       answer: "After you send your request, your chauffeur will discuss your trip with you and confirm the fare.",
@@ -26,7 +26,10 @@ export function AirportTransferFaq({ airportName, destination, additionalQuestio
     },
     ...additionalQuestions,
   ];
+}
 
+export function AirportTransferFaq(props: AirportTransferFaqProps) {
+  const questions = airportTransferQuestions(props);
   return (
     <section className="destination-section destination-soft">
       <div className="destination-container">

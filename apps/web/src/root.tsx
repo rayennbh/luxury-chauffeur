@@ -14,6 +14,7 @@ import stylesheet from "@/index.css?url";
 import { readLanguageSettings } from "@/i18n/languages.server";
 import { SiteLanguageProvider } from "@/i18n/site-language";
 import { siteOrigin } from "@/lib/site-origin.server";
+import { businessProfiles } from "@/lib/business-profiles.server";
 import { HorizonsPreviewScripts } from "./horizons-preview-scripts";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -59,7 +60,7 @@ export function loader({ request }: Route.LoaderArgs) {
   const origin = siteOrigin(request);
 
   return data(
-    { origin, languages: readLanguageSettings() },
+    { origin, languages: readLanguageSettings(), businessProfiles: businessProfiles() },
     {
       headers: {
         Link: `<${origin}/sitemap.xml>; rel="sitemap"; type="application/xml"`,
