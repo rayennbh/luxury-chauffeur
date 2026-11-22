@@ -3,6 +3,7 @@ import { ArrowUpRight, Menu, X, MessageCircle } from "lucide-react";
 import { useDisclosure } from "@/hooks/use-disclosure";
 import { whatsappUrl } from "@/lib/contact-links";
 import { WHATSAPP_NUMBER, WHATSAPP_DEFAULT_MESSAGE } from "@/constants/site";
+import { LanguageMenu } from "@/components/language-menu";
 
 /** Vector interpretation of the supplied LR monogram; no image file required. */
 export function LuxrideBrand() {
@@ -91,6 +92,7 @@ export function SiteHeader() {
         <a className="button button-blue header-book" href="/#reservations">
           Request a transfer <ArrowUpRight size={17} />
         </a>
+        <LanguageMenu />
       </div>
       <button
         className="icon-button mobile-menu"

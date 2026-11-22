@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { vehicles } from "@/data/vehicles";
+import { languageMenuMarkup } from "@/components/language-menu";
 // Set your real reservation email, then activate it with FormSubmit before publishing.
 const BOOKING_EMAIL = "contact@luxury-chauffeur.com";
 
@@ -110,6 +111,7 @@ const destinationPaths: Record<string, string> = {
 };
 
 const pageMarkup = markup
+  .replace('<button class="menu" id="menu"', (button) => languageMenuMarkup("/") + button)
   .replace(
     /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
     "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",
