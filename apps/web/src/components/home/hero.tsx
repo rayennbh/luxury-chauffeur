@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { vehicles } from "@/data/vehicles";
+import { SiteLanguageMenu } from "@/i18n/site-language";
 // Set your real reservation email, then activate it with FormSubmit before publishing.
 const BOOKING_EMAIL = "contact@luxury-chauffeur.com";
 
@@ -110,6 +112,7 @@ const destinationPaths: Record<string, string> = {
 };
 
 const pageMarkup = markup
+  .replace('<button class="menu" id="menu"', '<div class="home-language-slot"></div><button class="menu" id="menu"')
   .replace(
     /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
     "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",
@@ -442,15 +445,29 @@ listen($('transferLink'),'click',()=>setMode('transfer'));
 function setMode(m: string){mode=m;const hourly=m==='hourly';$('transferTab').classList.toggle('active',!hourly);$('hourlyTab').classList.toggle('active',hourly);$('transferTab').setAttribute('aria-selected',String(!hourly));$('hourlyTab').setAttribute('aria-selected',String(hourly));$('dropField').hidden=hourly;$('durationField').hidden=!hourly;$('swap').hidden=hourly;$('dropoff').required=!hourly;$('formError').hidden=true}
 $('transferTab').onclick=()=>setMode('transfer');$('hourlyTab').onclick=()=>setMode('hourly');listen($('hourlyLink'),'click',()=>setMode('hourly'));$('swap').onclick=()=>{const a=$('pickup').value;$('pickup').value=$('dropoff').value;$('dropoff').value=a};
 function showError(message: string){$('formError').textContent=message;$('formError').hidden=false}
-listen($('quoteForm'),'submit',e=>{e.preventDefault();$('formError').hidden=true;const pickup=$('pickup').value.trim(),dropoff=$('dropoff').value.trim(),date=$('date').value,time=$('time').value,pax=Number($('pax').value);if(!pickup||mode==='transfer'&&!dropoff||!date||!time){showError('Please complete pickup, destination (if applicable), date and time.');return}if(!Number.isFinite(new Date(date+'T'+time).getTime()) || new Date(date+'T'+time).getTime()<=Date.now()){showError('Please choose a future date and time.');return}const amount = null;lastQuote={mode,pickup,dropoff,date,time,pax,vehicle:preferred,duration:$('duration').value,amount};$('quoteSummary').textContent=mode==='transfer'?`${pickup} → ${dropoff} · ${date} at ${time} · ${pax} passenger${pax===1?'':'s'}`:`${pickup} · ${$('duration').value} hours · ${date} at ${time} · ${pax} passenger${pax===1?'':'s'}`;$('priceBox').textContent=`Custom quotation required · ${preferred}`;const capacity =
-  vehicles.find((vehicle) => vehicle.name === preferred)?.passengers ?? 0;
-
-if (pax > capacity) {
-  $("priceBox").textContent =
-    preferred +
-    ": your group exceeds this vehicle’s listed capacity. " +
-    "Please choose a larger vehicle or request multiple vehicles.";
-}$('requestHint').textContent='Your request will be sent to our team. Your booking is confirmed separately.';$('sendRequest').disabled=false;$('sendRequest').textContent='Send Booking Request →';$('quoteDialog').showModal()});
+listen($('quoteForm'),'submit',e=>{e.preventDefault();$('formError').hidden=true;const pickup=$('pickup').value.trim(),dropoff=$('dropoff').value.trim(),date=$('date').value,time=$('time').value,pax=Number($('pax').value);if(!pickup||mode==='transfer'&&!dropoff||!date||!time){showError('Please complete pickup, destination (if applicable), date and time.');return}if(!Number.isFinite(new Date(date+'T'+time).getTime()) || new Date(date+'T'+time).getTime()<=Date.now()){showError('Please choose a future date and time.');return}const amount = null;lastQuote={mode,pickup,dropoff,date,time,pax,vehicle:preferred,duration:$('duration').value,amount};
+const summary = $("quoteSummary");
+summary.replaceChildren();
+const journey = root.ownerDocument.createElement("bdi");
+journey.translate = false;
+journey.textContent = mode === "transfer" ? `${pickup} → ${dropoff}` : pickup;
+summary.append(journey);
+const details = mode === "transfer"
+  ? [["Date", date], ["Time", time], ["Passengers", pax]]
+  : [["Duration", $("duration").value], ["Date", date], ["Time", time], ["Passengers", pax]];
+for (const [label, value] of details) {
+  const term = root.ownerDocument.createElement("span");
+  term.textContent = String(label);
+  summary.append(" · ", term, ": " + value);
+}
+const priceBox = $("priceBox");
+const priceMessage = root.ownerDocument.createElement("span");
+const capacity = vehicles.find((vehicle) => vehicle.name === preferred)?.passengers ?? 0;
+priceMessage.textContent = pax > capacity
+  ? "Your group exceeds this vehicle’s listed capacity. Please choose a larger vehicle or request multiple vehicles."
+  : "Custom quotation required";
+priceBox.replaceChildren(priceMessage, " · " + preferred);
+$('requestHint').textContent='Your request will be sent to our team. Your booking is confirmed separately.';$('sendRequest').disabled=false;$('sendRequest').textContent='Send Booking Request →';$('quoteDialog').showModal()});
 $('closeDialog').onclick=()=>$('quoteDialog').close();listen($('quoteDialog'),'click',e=>{if(e.target===$('quoteDialog'))$('quoteDialog').close()});
 function requestText(){if(!lastQuote)return "";const q=lastQuote;return `Luxury Chauffeur — Quote Request\n\nService: ${q.mode==='transfer'?'Transfer':'Hourly service'}\nPickup: ${q.pickup}\n${q.mode==='transfer'?`Drop-off: ${q.dropoff}\n`:`Duration: ${q.duration} hours\n`}Date: ${q.date}\nTime: ${q.time}\nPassengers: ${q.pax}\nPreferred vehicle: ${q.vehicle}\n${q.amount===null?'Price: Custom quote requested':`Indicative price: €${q.amount} (subject to confirmation)`}\n\nName: ${$('customerName').value.trim()}\nEmail: ${$('customerEmail').value.trim()}\nPhone: ${$('customerPhone').value.trim()}\nNotes: ${$('notes').value.trim()}\n\nPlease confirm availability and final price.`}
 listen($('requestForm'),'submit',async e=>{
@@ -489,8 +506,10 @@ return () => {
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
+  const [languageSlot, setLanguageSlot] = useState<Element | null>(null);
   useEffect(() => {
     if (!root.current) return;
+    setLanguageSlot(root.current.querySelector(".home-language-slot"));
     return initializeLuxuryHome(root.current, async (payload: Record<string, unknown>) => {
       const email = BOOKING_EMAIL.trim();
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -518,10 +537,9 @@ export function Hero() {
     });
   }, []);
   return (
-  <div
-    className="luxury-home"
-    ref={root}
-    dangerouslySetInnerHTML={{ __html: pageMarkup }}
-  />
+    <>
+      <div className="luxury-home" ref={root} dangerouslySetInnerHTML={{ __html: pageMarkup }} />
+      {languageSlot && createPortal(<SiteLanguageMenu />, languageSlot)}
+    </>
 );
 }
