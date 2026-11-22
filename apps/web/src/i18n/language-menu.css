@@ -1,10 +1,11 @@
-.site-language-menu {
+/* Match the shared component in both headers, including the legacy home reset. */
+header .site-language-menu {
   position: relative;
   z-index: 3;
   flex: none;
-  font-family: 'Manrope', Arial, sans-serif;
+  font: 400 14px/1.5 'Manrope', Arial, sans-serif;
 }
-.site-language-menu button {
+header .site-language-menu button {
   font-family: inherit;
 }
 .site-language-menu .site-language-trigger {
@@ -26,8 +27,8 @@
 .site-language-trigger[aria-expanded="true"] .site-language-chevron {
   transform: rotate(180deg);
 }
-.site-language-panel,
-.site-language-error {
+.site-language-menu .site-language-panel,
+.site-language-menu .site-language-error {
   position: absolute;
   inset-block-start: calc(100% + 8px);
   inset-inline-end: 0;
@@ -40,7 +41,8 @@
   color: #241c26;
   box-shadow: 0 10px 26px #21152630;
 }
-.site-language-panel { list-style: none; }
+.site-language-menu .site-language-panel,
+.site-language-menu .site-language-panel > li { list-style: none; }
 .site-language-menu .site-language-panel button {
   display: flex;
   align-items: center;
@@ -68,7 +70,7 @@
   outline: 2px solid #b40f59;
   outline-offset: 2px;
 }
-.site-language-error {
+.site-language-menu .site-language-error {
   width: 13rem;
   padding: 10px;
   font-size: 12px;
@@ -90,5 +92,5 @@
   .site-header .header-actions { gap: 4px; margin-inline-start: auto; }
   .site-header .header-whatsapp span,
   .site-language-trigger > span,
-  .site-language-chevron { display: none; }
+  .site-language-menu .site-language-chevron { display: none; }
 }
