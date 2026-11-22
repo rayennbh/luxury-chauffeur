@@ -21,7 +21,7 @@ export function meta(args: SeoArgs) {
   return seo(args, {
     title: `${NICE_AIRPORT_TO_CANNES_TITLE} | Luxury Chauffeur`,
     description:
-      "Request a private transfer from Nice Côte d’Azur Airport (NCE) to your hotel, villa or event in Cannes. Share flight, passenger and luggage details for a quote.",
+      "Plan your private transfer from Nice Airport (NCE) to Cannes. Check the estimated drive time, arrange your terminal pickup and request a personalised quote.",
     path: NICE_AIRPORT_TO_CANNES_PATH,
   });
 }
@@ -35,6 +35,11 @@ export default function NiceAirportToCannes() {
           <p>
             Request a chauffeur from Nice Côte d’Azur Airport (NCE) to your hotel
             on La Croisette, a villa in Cannes or an event at the Palais des Festivals.
+          </p>
+          <p>
+            Allow roughly 30 to 50 minutes for the drive, depending on traffic and
+            your drop-off address. Allow extra time during major events in Cannes.
+            Your chauffeur will confirm the fare with you after you request a quote.
           </p>
           <div className="destination-actions">
             <a className="destination-button" href={bookingHref}>Request a Transfer Quote ↗</a>
@@ -51,8 +56,9 @@ export default function NiceAirportToCannes() {
           <article>
             <h3>Meeting your chauffeur at NCE</h3>
             <p>
-              Include your flight number and arrival time. The meeting point and any
-              luggage assistance can be agreed before travel.
+              Include your flight number, scheduled arrival time and terminal if you
+              know it. Agree on the meeting point with your chauffeur before you fly.
+              If your flight or terminal changes, contact your chauffeur with the new details.
             </p>
           </article>
           <article>
@@ -66,8 +72,9 @@ export default function NiceAirportToCannes() {
           <article>
             <h3>Arriving in Cannes</h3>
             <p>
-              Share the exact drop-off address. For festival and conference dates,
-              ask about access restrictions near La Croisette and the Palais des Festivals.
+              Share your hotel or venue name and its street address. For festival and
+              conference dates, include the time you need to arrive so you can discuss
+              traffic and any access restrictions near La Croisette or the Palais des Festivals.
             </p>
           </article>
         </div>
