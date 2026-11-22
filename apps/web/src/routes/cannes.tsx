@@ -1,5 +1,6 @@
 import { useLocation } from "react-router";
 import { seo, type SeoArgs } from "@/lib/seo";
+import { organizationSchema, serviceSchema } from "@/lib/business-schema";
 import { whatsappUrl, mailtoHref } from "@/lib/contact-links";
 import { WHATSAPP_NUMBER, CONTACT_EMAIL } from "@/constants/site";
 import {
@@ -223,6 +224,10 @@ export function meta(args: SeoArgs) {
     description: page.description,
     image: hero.src,
     path: args.location.pathname,
+    jsonLd: [
+      organizationSchema(args),
+      serviceSchema(args, `Private chauffeur in ${page.name}`, page.description, [page.name]),
+    ],
   });
 }
 

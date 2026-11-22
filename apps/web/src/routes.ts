@@ -29,9 +29,15 @@ export default [
 	...airportTransfers.map(({ slug }) =>
 		route(slug, "routes/airport-transfer.tsx", { id: slug }),
 	),
+	route("about", "routes/business-info.tsx", { id: "about" }),
+	route("contact", "routes/business-info.tsx", { id: "contact" }),
+	route("terms", "routes/business-info.tsx", { id: "terms" }),
 
 	route("sitemap.xml", "routes/sitemap.xml.ts"),
 	route("robots.txt", "routes/robots.txt.ts"),
+	route("llms.txt", "routes/llms.txt.ts"),
+	route("mcp", "routes/mcp.ts"),
+	route(".well-known/mcp/server-card.json", "routes/mcp-card.ts"),
 
 	route("api/health", "routes/api.health.ts"),
 	route("api/*", "routes/api.$.ts"),

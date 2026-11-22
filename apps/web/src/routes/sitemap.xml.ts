@@ -1,73 +1,46 @@
-import type { Route } from './+types/sitemap.xml';
-import { siteOrigin } from '@/lib/site-origin.server';
-import { NICE_AIRPORT_TO_CANNES_PATH } from '@/constants/transfer-routes';
-import { airportTransfers } from '@/data/airport-transfers';
+import type { Route } from "./+types/sitemap.xml";
+import { siteOrigin } from "@/lib/site-origin.server";
+import { publicPages } from "@/data/public-pages";
 
-type SitemapEntry = {
-	path: string;
-	lastmod?: string;
+// Each listed page gained new or materially updated content or structured data
+// in this release. Update the corresponding date when a page changes again.
+const lastModified: Record<string, string> = {
+  "/": "2026-11-23",
+  "/about": "2026-11-23",
+  "/contact": "2026-11-23",
+  "/terms": "2026-11-23",
+  "/nice": "2026-11-23",
+  "/cannes": "2026-11-23",
+  "/monaco": "2026-11-23",
+  "/saint-tropez": "2026-11-23",
+  "/courchevel": "2026-11-23",
+  "/nice-airport-to-cannes": "2026-11-23",
+  "/nice-airport-to-monaco": "2026-11-23",
+  "/nice-airport-to-saint-tropez": "2026-11-23",
+  "/geneva-airport-to-courchevel": "2026-11-23",
 };
 
-const STATIC_PATHS = [
-	"/",
-	"/monaco",
-	"/cannes",
-	NICE_AIRPORT_TO_CANNES_PATH,
-	"/nice",
-	"/saint-tropez",
-	"/courchevel",
-	...airportTransfers.map(({ slug }) => `/${slug}`),
-];
-
-function escapeXml(value: string): string {
-	return value
-		.replaceAll('&', '&amp;')
-		.replaceAll('<', '&lt;')
-		.replaceAll('>', '&gt;')
-		.replaceAll('"', '&quot;')
-		.replaceAll("'", '&apos;');
+function escapeXml(value: string) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
-function toLoc(origin: string, path: string): string {
-	return `${origin}${path.startsWith('/') ? path : `/${path}`}`;
-}
+export function loader({ request }: Route.LoaderArgs) {
+  const origin = siteOrigin(request);
+  const urls = publicPages.map(({ path }) => {
+    const lastmod = lastModified[path];
+    return `  <url>
+    <loc>${escapeXml(origin + path)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
+  </url>`;
+  }).join("\n");
 
-function serializeSitemap(origin: string, entries: SitemapEntry[]): string {
-	const urls = entries
-		.map(entry => {
-			const loc = escapeXml(toLoc(origin, entry.path));
-			const lastmod = entry.lastmod
-				? `\n\t\t<lastmod>${escapeXml(entry.lastmod)}</lastmod>`
-				: '';
-
-			return `\t<url>\n\t\t<loc>${loc}</loc>${lastmod}\n\t</url>`;
-		})
-		.join('\n');
-
-	return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-}
-
-/**
- * Public dynamic URLs (blog posts, PDPs, articles).
- * Return `{ path, lastmod }` in the same change that adds a collection.
- * Return `[]` only while the site has no public records; clear those URLs
- * again in the same change that removes the collection.
- */
-async function getDynamicEntries(): Promise<SitemapEntry[]> {
-	return [];
-}
-
-export async function loader({ request }: Route.LoaderArgs) {
-	const origin = siteOrigin(request);
-	const entries: SitemapEntry[] = [
-		...STATIC_PATHS.map(path => ({ path })),
-		...(await getDynamicEntries()),
-	];
-
-	return new Response(serializeSitemap(origin, entries), {
-		headers: {
-			'Content-Type': 'application/xml; charset=utf-8',
-			'Cache-Control': 'public, max-age=3600',
-		},
-	});
+  return new Response(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`, {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
 }

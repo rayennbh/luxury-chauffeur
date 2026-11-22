@@ -1,5 +1,6 @@
 import { useLocation } from "react-router";
-import { AirportTransferFaq } from "@/components/airport-transfer-faq";
+import { airportTransferQuestions, AirportTransferFaq } from "@/components/airport-transfer-faq";
+import { faqSchema, organizationSchema, serviceSchema } from "@/lib/business-schema";
 import { WHATSAPP_NUMBER } from "@/constants/site";
 import { airportTransfers } from "@/data/airport-transfers";
 import { whatsappUrl } from "@/lib/contact-links";
@@ -18,6 +19,15 @@ export function meta(args: SeoArgs) {
     title: `${transfer.title} | Luxury Chauffeur`,
     description: transfer.description,
     path: `/${transfer.slug}`,
+    jsonLd: [
+      organizationSchema(args),
+      serviceSchema(args, transfer.title, transfer.description, [transfer.airportName, transfer.destination], `/${transfer.slug}`),
+      faqSchema(airportTransferQuestions({
+        airportName: transfer.airportName,
+        destination: transfer.destination,
+        additionalQuestions: transfer.questions,
+      })),
+    ],
   });
 }
 
