@@ -60,22 +60,22 @@ const destinations: Record<string, Destination> = {
     name: "Monaco & Monte-Carlo",
     title: "Private Chauffeur Monaco & Monte-Carlo | Luxury Chauffeur",
     description:
-      "Arrange private chauffeur transport in Monaco and Monte-Carlo. Request Nice Airport transfers, hotel journeys, hourly hire and event transportation.",
+      "Request a private chauffeur in Monaco or Monte-Carlo for a one-way transfer, hourly hire or an event. Share your itinerary for a personalised quote.",
     intro:
-      "Arrange discreet private transportation for hotel arrivals, business appointments and personal itineraries in Monaco and Monte-Carlo.",
+      "Request a private driver for a direct transfer to your hotel or venue in Monaco. For several stops, share your itinerary to arrange hourly or full-day chauffeur hire in Monaco and Monte-Carlo.",
 
     services: [
       [
         "Nice Airport to Monaco",
-        "Request a private transfer from Nice Côte d’Azur Airport to your hotel, residence or meeting address in Monaco.",
+        "For a transfer from Nice Côte d’Azur Airport to Monaco, share your flight number, the exact drop-off address and the number of passengers and bags.",
       ],
       [
-        "Monte-Carlo chauffeur hire",
-        "Share your appointments, restaurant reservations and preferred schedule to arrange hourly or full-day transportation.",
+        "Hourly chauffeur hire in Monaco",
+        "For meetings in Fontvieille or an evening in Monte-Carlo, include your stops, the times you need to arrive and any waiting time. Your chauffeur can discuss the schedule and confirm the fare with you.",
       ],
       [
         "Events and marina transfers",
-        "Enquire about journeys for the Monaco Grand Prix, Monaco Yacht Show or a marina arrival. Vehicle access and pickup arrangements require advance confirmation.",
+        "For the Monaco Grand Prix, Monaco Yacht Show or a pickup at Port Hercule, share your venue entrance or berth and the time you need to be there. Confirm the meeting point and vehicle access before travel.",
       ],
     ],
 
