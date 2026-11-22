@@ -404,6 +404,33 @@ export default function DestinationPage() {
         </div>
       </section>
 
+      {pathname === "/cannes" && (
+        <section className="destination-section destination-container" lang="fr">
+          <h2>Chauffeur privé haut de gamme à Cannes</h2>
+          <p>
+            Organisez un transfert depuis l’aéroport de Nice vers votre hôtel sur
+            la Croisette ou demandez un chauffeur à l’heure pour plusieurs rendez-vous.
+            Pour un événement au Palais des Festivals, indiquez votre heure d’arrivée
+            et l’entrée du bâtiment afin de convenir d’un point de dépose accessible.
+          </p>
+          <p>
+            Pour obtenir un devis, indiquez la date, les adresses, le nombre de
+            passagers et vos bagages. Le chauffeur confirme le tarif avec vous.
+          </p>
+          <a
+            className="destination-text-link"
+            href={whatsappUrl({
+              phone: WHATSAPP_NUMBER,
+              text: "Bonjour, je souhaite un devis pour un chauffeur privé à Cannes.",
+            })}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Demander un devis sur WhatsApp ↗
+          </a>
+        </section>
+      )}
+
       <section className="destination-section destination-cta">
         <div className="destination-container">
           <h2>Let us arrange your next journey.</h2>
