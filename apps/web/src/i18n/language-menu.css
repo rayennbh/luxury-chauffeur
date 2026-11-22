@@ -43,6 +43,11 @@ header .site-language-menu button {
 }
 .site-language-menu .site-language-panel,
 .site-language-menu .site-language-panel > li { list-style: none; }
+.site-language-menu .site-language-panel {
+  max-height: min(384px, 65dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .site-language-menu .site-language-panel button {
   display: flex;
   align-items: center;

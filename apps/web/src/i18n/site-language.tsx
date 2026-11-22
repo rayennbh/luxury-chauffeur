@@ -10,6 +10,9 @@ const catalogs = {
   es: () => import("./locales/es.json"),
   de: () => import("./locales/de.json"),
   ar: () => import("./locales/ar.json"),
+  ru: () => import("./locales/ru.json"),
+  it: () => import("./locales/it.json"),
+  pt: () => import("./locales/pt.json"),
 };
 
 const storageKey = "luxury-chauffeur:language";
@@ -20,6 +23,9 @@ const languageLabels: Record<Language, string> = {
   es: "Elegir idioma",
   de: "Sprache wählen",
   ar: "اختر اللغة",
+  ru: "Выбрать язык",
+  it: "Scegli la lingua",
+  pt: "Escolher idioma",
 };
 
 const LanguageContext = createContext<{

@@ -4,6 +4,9 @@ export const languageNames = {
   es: "Español",
   de: "Deutsch",
   ar: "العربية",
+  ru: "Русский",
+  it: "Italiano",
+  pt: "Português",
 } as const;
 
 export type Language = keyof typeof languageNames;
