@@ -14,12 +14,14 @@ import { airportTransfers } from "@/data/airport-transfers";
 
 type Destination = {
   name: string;
+  heroLead?: string;
   title: string;
   description: string;
   intro: string;
   services: [string, string][];
   routes: string[];
   note: string;
+  quoteIntro?: string;
 };
 
 const destinations: Record<string, Destination> = {
@@ -161,24 +163,25 @@ const destinations: Record<string, Destination> = {
 
   "/courchevel": {
     name: "Courchevel",
-    title: "Courchevel Private Chauffeur & Transfers | Luxury Chauffeur",
+    heroLead: "Private chauffeur in",
+    title: "Private Chauffeur in Courchevel | Luxury Chauffeur",
     description:
-      "Request a private transfer to Courchevel from Geneva, Lyon, Chambéry or Grenoble Airport. Share passenger, luggage and ski equipment requirements.",
+      "Request a private chauffeur in Courchevel for hotel and chalet pickups, local journeys, hourly hire or airport transfers. Share your plans for a quote.",
     intro:
-      "Organise private travel to your Courchevel hotel or chalet, with arrangements discussed around your flight, group and luggage.",
+      "Arrange a private driver for your stay in Courchevel, from a chalet pickup in Le Praz to dinner in Courchevel 1850. Request an airport transfer, a local ride or a chauffeur for several stops.",
 
     services: [
       [
-        "Airport to Courchevel",
-        "Enquire about transfers from Geneva, Lyon, Chambéry or Grenoble Airport. Provide flight details and the exact resort address.",
+        "Hotel and chalet pickups",
+        "For pickups in Courchevel 1850, Moriond, Courchevel Village or Le Praz, include the village, the full address and any chalet access instructions so your chauffeur can confirm where to meet you.",
       ],
       [
-        "Chalet and resort transport",
-        "Share your hotel, chalet or appointment locations to request local or hourly chauffeur transport, subject to availability.",
+        "Hourly chauffeur hire in Courchevel",
+        "For a restaurant reservation, a return to your chalet or several stops around the resort, share your itinerary and the times you need to arrive. Your chauffeur will confirm availability and discuss any waiting time with you.",
       ],
       [
-        "Luggage and ski equipment",
-        "Specify suitcases, skis, snowboards and any child-seat requirements. Vehicle capacity and suitable equipment must be confirmed before booking.",
+        "Airport transfers to and from Courchevel",
+        "Request a private transfer from Geneva, Lyon, Chambéry or Grenoble Airport. Include your flight details, your chalet or hotel address and any return journey so your chauffeur can review the timing with you.",
       ],
     ],
 
@@ -190,7 +193,9 @@ const destinations: Record<string, Destination> = {
     ],
 
     note:
-      "Mountain weather, road conditions and peak arrival periods can affect travel. Winter equipment and any special requirements must be confirmed with the operator.",
+      "Allow extra time during snowy weather and on busy changeover days. List skis, snowboards and suitcases separately, and mention any child seat requirements so your chauffeur can confirm vehicle capacity and suitable equipment.",
+    quoteIntro:
+      "Share your pickup address, travel date, passenger count and luggage details. Your chauffeur will discuss your itinerary and confirm the fare with you before you book.",
   },
 };
 
@@ -280,7 +285,7 @@ export default function DestinationPage() {
           </p>
 
           <h1>
-            Private chauffeur
+            {page.heroLead ?? "Private chauffeur"}
             <br />
             <em>{page.name}</em>
           </h1>
@@ -414,7 +419,7 @@ export default function DestinationPage() {
           <h2>Let us arrange your next journey.</h2>
 
           <p>
-            Share your itinerary and request a personalised quotation.
+            {page.quoteIntro ?? "Share your itinerary and request a personalised quotation."}
           </p>
 
           <div className="destination-actions">
