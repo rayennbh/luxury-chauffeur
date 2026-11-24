@@ -29,7 +29,7 @@ export function meta({ matches, location }: Route.MetaArgs) {
   return seo(
     args,
     {
-      title: "Luxury Chauffeur | Private Transfers on the French Riviera & Alps",
+      title: "Luxury Chauffeur on the French Riviera & in the Alps",
       description:
         "Luxury chauffeur transfers in Nice, Monaco, Cannes, Saint-Tropez and Courchevel. Premium Mercedes fleet, airport transfers and private chauffeur service. Request a quote.",
       jsonLd: [
