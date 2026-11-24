@@ -25,22 +25,7 @@ import { WHATSAPP_NUMBER, WHATSAPP_DEFAULT_MESSAGE } from "@/constants/site";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
-  {
-  rel: "icon",
-  type: "image/svg+xml",
-  href:
-    "data:image/svg+xml," +
-    encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-        <rect width="64" height="64" rx="12" fill="#111d2b"/>
-        <g fill="none" stroke="#e7bf73" stroke-width="5"
-           stroke-linecap="square" stroke-linejoin="miter">
-          <path d="M52 19C48 15 44 14 39 14C28 14 22 22 22 32C22 43 28 50 39 50C44 50 48 48 52 44"/>
-          <path d="M16 17V46H34"/>
-        </g>
-      </svg>
-    `),
-},
+  { rel: "icon", type: "image/svg+xml", sizes: "any", href: "/favicon.svg" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
