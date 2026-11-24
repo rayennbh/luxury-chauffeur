@@ -27,11 +27,11 @@ type Destination = {
 const destinations: Record<string, Destination> = {
   "/cannes": {
     name: "Cannes",
-    title: "Private Chauffeur Cannes | Luxury Chauffeur",
+    title: "Private Chauffeur in Cannes | Luxury Chauffeur",
     description:
       "Request a private chauffeur in Cannes for Nice Airport transfers, hotel arrivals, hourly hire and event transport. Receive a personalised quotation.",
     intro:
-      "From an arrival on La Croisette to a busy business itinerary, arrange private transport around your stay in Cannes.",
+      "Arrange a private driver in Cannes for a hotel pickup on La Croisette, an event at the Palais des Festivals or an hourly booking between meetings. For arrivals at Nice Airport, share your flight and final address in Cannes.",
 
     services: [
       [
@@ -61,11 +61,11 @@ const destinations: Record<string, Destination> = {
 
   "/monaco": {
     name: "Monaco & Monte-Carlo",
-    title: "Private Chauffeur Monaco & Monte-Carlo | Luxury Chauffeur",
+    title: "Private Chauffeur in Monaco & Monte-Carlo | Luxury Chauffeur",
     description:
       "Request a private chauffeur in Monaco or Monte-Carlo for a one-way transfer, hourly hire or an event. Share your itinerary for a personalised quote.",
     intro:
-      "Request a private driver for a direct transfer to your hotel or venue in Monaco. For several stops, share your itinerary to arrange hourly or full-day chauffeur hire in Monaco and Monte-Carlo.",
+      "Arrange a private chauffeur in Monaco and Monte-Carlo for a hotel or marina pickup, a direct transfer or an event. Share your stops and preferred timings for hourly or full-day chauffeur hire.",
 
     services: [
       [
@@ -97,9 +97,9 @@ const destinations: Record<string, Destination> = {
     name: "Nice",
     title: "Private Chauffeur Nice & Airport Transfers | Luxury Chauffeur",
     description:
-      "Book a private chauffeur enquiry in Nice. Arrange Nice Airport transfers, hotel pickups, business transport and private journeys across the French Riviera.",
+      "Request a private chauffeur in Nice for luxury Nice Airport transfers, hotel pickups and private journeys across the French Riviera.",
     intro:
-      "Start your Riviera stay with private transport from Nice Airport, or plan chauffeur-driven journeys between your hotel, meetings and coastal destinations.",
+      "Arriving at Nice Côte d’Azur Airport? Request a luxury airport transfer to your hotel in Nice or onward to Cannes, Monaco or Saint-Tropez. Include your flight number, passenger count and luggage details.",
 
     services: [
       [
@@ -168,7 +168,7 @@ const destinations: Record<string, Destination> = {
     description:
       "Request a private chauffeur in Courchevel for hotel and chalet pickups, local journeys, hourly hire or airport transfers. Share your plans for a quote.",
     intro:
-      "Arrange a private driver for your stay in Courchevel, from a chalet pickup in Le Praz to dinner in Courchevel 1850. Request an airport transfer, a local ride or a chauffeur for several stops.",
+      "Arrange a private driver in Courchevel for a chalet pickup in Le Praz, dinner in Courchevel 1850 or an airport transfer to your hotel. For several stops around the resort, ask about hourly chauffeur hire.",
 
     services: [
       [
