@@ -13,7 +13,7 @@ const lastModified: Record<string, string> = {
   "/cannes": "2026-11-23",
   "/monaco": "2026-11-23",
   "/saint-tropez": "2026-11-23",
-  "/courchevel": "2026-11-23",
+  "/courchevel": "2026-11-24",
   "/nice-airport-to-cannes": "2026-11-23",
   "/nice-airport-to-monaco": "2026-11-23",
   "/nice-airport-to-saint-tropez": "2026-11-23",

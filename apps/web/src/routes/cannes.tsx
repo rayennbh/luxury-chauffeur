@@ -405,6 +405,13 @@ export default function DestinationPage() {
 
           <p>{page.note}</p>
 
+          {pathname === "/courchevel" && (
+            <div>
+              <h3>Can I book a return ride after dinner in Courchevel?</h3>
+              <p>Yes. Include the restaurant, your preferred pickup time and the hotel or chalet you are returning to. If you are unsure when dinner will finish, ask about waiting time when you request your quote.</p>
+            </div>
+          )}
+
           <a
             className="destination-text-link"
             href="/#fleet"
