@@ -424,11 +424,11 @@ export default function DestinationPage() {
       )}
 
       {places && (
-        <section className="destination-section destination-container" aria-labelledby="destination-places">
+        <section className="destination-section destination-container destination-place-guide" aria-labelledby="destination-places">
           <h2 id="destination-places">Plan your journey</h2>
-          <div className="destination-grid-cards">
+          <div className="destination-place-groups">
             {placeGroups.map(([group, title]) => (
-              <div key={group}>
+              <div className="destination-place-group" key={group}>
                 <h3>{title}</h3>
                 <ul className="destination-place-list">
                   {places[group].map((name) => {
