@@ -1601,3 +1601,28 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
     grid-template-columns: 1fr;
   }
 }
+
+/* The hourly form hides the swap and destination fields. */
+.luxury-home .getquote {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 1171px) {
+  .luxury-home .fields:has(.duration:not([hidden])) {
+    grid-template-columns: minmax(150px, 1.45fr) minmax(120px, .85fr)
+      minmax(132px, 1fr) minmax(110px, .85fr) minmax(98px, .75fr)
+      minmax(175px, 1.2fr);
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1170px) {
+  .luxury-home .fields:has(.duration:not([hidden])) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .luxury-home .fields:has(.duration:not([hidden])) > .field,
+  .luxury-home .fields:has(.duration:not([hidden])) > .getquote {
+    grid-column: auto;
+  }
+}
