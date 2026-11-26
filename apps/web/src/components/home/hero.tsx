@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { vehicles } from "@/data/vehicles";
 import { SiteLanguageMenu } from "@/i18n/site-language";
+import { useDisclosure } from "@/hooks/use-disclosure";
 import { CONTACT_EMAIL } from "@/constants/site";
 import { NICE_AIRPORT_TO_CANNES_PATH } from "@/constants/transfer-routes";
 import { airportTransfers } from "@/data/airport-transfers";
@@ -568,6 +569,7 @@ return () => {
 
 export function Hero() {
   const root = useRef<HTMLDivElement>(null);
+  const services = useDisclosure();
   useEffect(() => {
     if (!root.current) return;
     return initializeLuxuryHome(root.current, async (payload: Record<string, unknown>) => {
@@ -609,7 +611,59 @@ export function Hero() {
             </span>
           </a>
           <nav className="nav" id="nav" aria-label="Main navigation">
-            <a href="#journeys">Services</a>
+            <div
+              className="services-dropdown"
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) services.close();
+              }}
+            >
+              <button type="button" className="services-trigger" {...services.triggerProps}>
+                Services <span aria-hidden="true" />
+              </button>
+              <div className="services-panel" {...services.panelProps} hidden={!services.isOpen}>
+                <div>
+                  <h2>Services</h2>
+                  <ul>
+                    <li>
+                      <a href="#booking" onClick={() => {
+                        root.current?.querySelector<HTMLButtonElement>("#transferTab")?.click();
+                        services.close();
+                      }}>Transfers</a>
+                    </li>
+                    <li>
+                      <a href="#booking" onClick={() => {
+                        root.current?.querySelector<HTMLButtonElement>("#hourlyTab")?.click();
+                        services.close();
+                      }}>Hourly Service</a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h2>Airport departures</h2>
+                  {Array.from(airportJourneys, ([airport, journeys]) => {
+                    const website = airportWebsites.get(airport);
+                    return (
+                      <div key={airport} className="services-airport">
+                        <h3>{website ? <a href={website} onClick={services.close}>{airport}</a> : airport}</h3>
+                        <ul>
+                          {journeys.map(({ href, destination }) => (
+                            <li key={href}><a href={href} onClick={services.close}>{destination}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div>
+                  <h2>Hotels and chalets</h2>
+                  <ul>
+                    {hotelDestinations.map(({ name, website }) => (
+                      <li key={name}><a href={website} onClick={services.close}>{name}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
             <a href="#fleet">Our Fleet</a>
             <a href="#destinations">Destinations</a>
             <a href="#contact">Contact</a>
@@ -622,6 +676,7 @@ export function Hero() {
             type="button"
             className="menu"
             id="menu"
+            onClick={services.close}
             aria-label="Open navigation"
             aria-controls="nav"
             aria-expanded="false"

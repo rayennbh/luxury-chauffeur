@@ -1626,3 +1626,112 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
     grid-template-columns: 1fr;
   }
 }
+
+/* Homepage Services navigation */
+.luxury-home .services-dropdown {
+  position: relative;
+}
+
+.luxury-home .services-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.luxury-home .services-trigger span {
+  width: .45rem;
+  height: .45rem;
+  border-inline-end: 1px solid currentColor;
+  border-block-end: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.luxury-home .services-trigger[aria-expanded="true"] span {
+  transform: rotate(225deg);
+}
+
+.luxury-home .services-panel {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 100%;
+  inset-inline-end: -14rem;
+  width: min(39rem, calc(100vw - 3rem));
+  max-height: 65vh;
+  overflow: auto;
+  padding: 1.25rem;
+  border: 1px solid #e9dce3;
+  border-block-start: 3px solid var(--pink);
+  border-radius: .9rem;
+  background: #fffdfd;
+  color: var(--ink);
+  box-shadow: 0 20px 46px #21132233;
+}
+
+.luxury-home .services-panel:not([hidden]) {
+  display: grid;
+  grid-template-columns: .85fr 1fr 1.2fr;
+  gap: 1rem;
+}
+
+.luxury-home .services-panel h2 {
+  margin: 0 0 .5rem;
+  font: 600 1.15rem "Playfair Display", serif;
+}
+
+.luxury-home .services-panel h3 {
+  margin: .25rem 0 0;
+  font-size: .9rem;
+}
+
+.luxury-home .services-panel ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.luxury-home .services-panel a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--ink);
+  font-size: .9rem;
+}
+
+.luxury-home .services-panel a:is(:hover, :focus-visible) {
+  color: #9d0046;
+  text-decoration: underline;
+}
+
+.luxury-home .services-airport ul {
+  padding-inline-start: .6rem;
+  border-inline-start: 1px solid #e9dce3;
+}
+
+@media (max-width: 900px) {
+  .luxury-home .nav.open {
+    max-height: calc(100dvh - 68px);
+    overflow-y: auto;
+  }
+
+  .luxury-home .services-trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .luxury-home .services-panel {
+    position: static;
+    width: auto;
+    max-height: none;
+  }
+
+  .luxury-home .services-panel:not([hidden]) {
+    grid-template-columns: 1fr;
+  }
+}
