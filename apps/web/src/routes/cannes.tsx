@@ -1,3 +1,4 @@
+import { destinationPlacePhotos } from "@/data/destination-place-photos";
 import { useLocation } from "react-router";
 import { seo, type SeoArgs } from "@/lib/seo";
 import { organizationSchema, serviceSchema } from "@/lib/business-schema";
@@ -429,8 +430,27 @@ export default function DestinationPage() {
             {placeGroups.map(([group, title]) => (
               <div key={group}>
                 <h3>{title}</h3>
-                <ul className="list-disc ps-5">
-                  {places[group].map((name) => <li key={name}>{name}</li>)}
+                <ul className="destination-place-list">
+                  {places[group].map((name) => {
+                    const photo = destinationPlacePhotos[name];
+                    return (
+                      <li key={name}>
+                        <figure>
+                          <img src={photo.src} alt={photo.caption ?? name} width={520} height={320} loading="lazy" decoding="async" />
+                          <figcaption>
+                            <strong>{name}</strong>
+                            {photo.caption && <span>{photo.caption}</span>}
+                            <small>
+                              <a href={photo.source}>Photo · {photo.author}</a>
+                              {" · "}
+                              <a href={photo.licenseUrl ?? photo.source}>{photo.license}</a>
+                              {" · Resized and cropped for display"}
+                            </small>
+                          </figcaption>
+                        </figure>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
