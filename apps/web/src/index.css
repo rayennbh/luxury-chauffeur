@@ -1626,3 +1626,35 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
     grid-column: auto;
   }
 }
+
+.destination-place-list {
+  display: grid;
+  gap: 1rem;
+  margin: .75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destination-place-list figure {
+  margin: 0;
+}
+
+.destination-place-list img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 13 / 8;
+  object-fit: cover;
+  border-radius: .75rem;
+}
+
+.destination-place-list figcaption {
+  display: grid;
+  gap: .125rem;
+  margin-top: .4rem;
+}
+
+.destination-place-list figcaption small,
+.destination-place-list figcaption span {
+  font-size: .8rem;
+}
