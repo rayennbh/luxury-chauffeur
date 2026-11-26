@@ -129,57 +129,13 @@ const airportWebsites = new Map([
 ]);
 
 const hotelDestinations = [
-  { name: "Carlton Cannes", place: "Cannes", website: "https://carltoncannes.com/en/" },
-  { name: "Hôtel de Paris Monte-Carlo", place: "Monaco", website: "https://www.montecarlosbm.com/fr/hotel-monaco/hotel-paris-monte-carlo" },
-  { name: "Les Airelles Courchevel", place: "Courchevel", website: "https://airelles.com/en/destination/courchevel-hotel" },
+  { name: "Carlton Cannes", website: "https://carltoncannes.com/en/" },
+  { name: "Hôtel de Paris Monte-Carlo", website: "https://www.montecarlosbm.com/fr/hotel-monaco/hotel-paris-monte-carlo" },
+  { name: "Les Airelles Courchevel", website: "https://airelles.com/en/destination/courchevel-hotel" },
 ];
-
-const journeyBoard = `
-  <section class="section journey-board" id="journeys" aria-labelledby="journey-title">
-    <div class="container">
-      <div class="section-title"><h2 id="journey-title">Services and routes</h2></div>
-      <div class="journey-service-links">
-        <a id="transferLink" href="#booking">Transfers</a>
-        <a id="hourlyLink" href="#booking">Hourly Service</a>
-      </div>
-      <div class="journey-columns">
-        <div class="journey-panel">
-          <h3>Airport departures</h3>
-          <p>Choose your route to see pickup and transfer details.</p>
-          ${Array.from(airportJourneys, ([airport, journeys]) => {
-            const website = airportWebsites.get(airport);
-            return `
-            <div class="journey-group">
-              <h4>${website ? `<a href="${website}">${airport}</a>` : airport}</h4>
-              <ul class="journey-airports">
-                ${journeys.map(({ href, destination }) => `<li><a href="${href}">${destination}</a></li>`).join("")}
-              </ul>
-            </div>
-          `;
-          }).join("")}
-        </div>
-        <div class="journey-panel">
-          <h3>Hotels and chalets</h3>
-          <ul class="journey-hotels">
-            ${hotelDestinations.map(({ name, place, website }) => `
-              <li>
-                <div>
-                  <a href="${website}">${name}</a>
-                  <small>${place}</small>
-                </div>
-                <a class="journey-hotel-quote" href="/?destination=${encodeURIComponent(name)}#booking">Request a Quote</a>
-              </li>
-            `).join("")}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-`;
 
 const pageMarkup = markup
   .replaceAll("⟪email⟫", CONTACT_EMAIL)
-  .replace('<span id="vehicules"></span>', journeyBoard + '<span id="vehicules"></span>')
   .replace(
     /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
     "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",
@@ -508,9 +464,8 @@ root.querySelectorAll<HTMLImageElement>(".fleet-card img").forEach((image) => {
     showFallback();
   }
 });const nav=$('nav');listen($('menu'),'click',()=>{const open=nav.classList.toggle('open');$('menu').setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>listen(a,'click',()=>{nav.classList.remove('open');$('menu').setAttribute('aria-expanded','false')}));
-listen($('transferLink'),'click',()=>setMode('transfer'));
 function setMode(m: string){mode=m;const hourly=m==='hourly';$('transferTab').classList.toggle('active',!hourly);$('hourlyTab').classList.toggle('active',hourly);$('transferTab').setAttribute('aria-selected',String(!hourly));$('hourlyTab').setAttribute('aria-selected',String(hourly));$('dropField').hidden=hourly;$('durationField').hidden=!hourly;$('swap').hidden=hourly;$('dropoff').required=!hourly;$('formError').hidden=true}
-$('transferTab').onclick=()=>setMode('transfer');$('hourlyTab').onclick=()=>setMode('hourly');listen($('hourlyLink'),'click',()=>setMode('hourly'));$('swap').onclick=()=>{const a=$('pickup').value;$('pickup').value=$('dropoff').value;$('dropoff').value=a};
+$('transferTab').onclick=()=>setMode('transfer');$('hourlyTab').onclick=()=>setMode('hourly');$('swap').onclick=()=>{const a=$('pickup').value;$('pickup').value=$('dropoff').value;$('dropoff').value=a};
 function showError(message: string){$('formError').textContent=message;$('formError').hidden=false}
 listen($('quoteForm'),'submit',e=>{e.preventDefault();$('formError').hidden=true;const pickup=$('pickup').value.trim(),dropoff=$('dropoff').value.trim(),date=$('date').value,time=$('time').value,pax=Number($('pax').value);if(!pickup||mode==='transfer'&&!dropoff||!date||!time){showError('Please complete pickup, destination (if applicable), date and time.');return}if(!Number.isFinite(new Date(date+'T'+time).getTime()) || new Date(date+'T'+time).getTime()<=Date.now()){showError('Please choose a future date and time.');return}const amount = null;lastQuote={mode,pickup,dropoff,date,time,pax,vehicle:preferred,duration:$('duration').value,amount};
 const summary = $("quoteSummary");
