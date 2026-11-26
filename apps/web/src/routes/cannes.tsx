@@ -199,6 +199,40 @@ const destinations: Record<string, Destination> = {
   },
 };
 
+const destinationPlaces: Record<string, { hotels: string[]; events: string[]; sights: string[] }> = {
+  "/cannes": {
+    hotels: ["Carlton Cannes","Hôtel Martinez"],
+    events: ["Festival de Cannes","Cannes Lions"],
+    sights: ["La Croisette","Palais des Festivals et des Congrès","Le Suquet"],
+  },
+  "/monaco": {
+    hotels: ["Hôtel de Paris Monte-Carlo","Hôtel Hermitage Monte-Carlo"],
+    events: ["Grand Prix de Monaco","Monaco Yacht Show"],
+    sights: ["Place du Casino","Port Hercule","Musée océanographique de Monaco"],
+  },
+  "/nice": {
+    hotels: ["Le Negresco","Palais de la Méditerranée"],
+    events: ["Carnaval de Nice","Nice Jazz Fest"],
+    sights: ["Promenade des Anglais","Vieux-Nice","Colline du Château"],
+  },
+  "/saint-tropez": {
+    hotels: ["Hôtel Byblos Saint-Tropez","Hôtel de Paris Saint-Tropez"],
+    events: ["Les Voiles de Saint-Tropez","Les Voiles d’Automne"],
+    sights: ["Vieux Port de Saint-Tropez","Citadelle de Saint-Tropez","Pampelonne"],
+  },
+  "/courchevel": {
+    hotels: ["Les Airelles Courchevel","Cheval Blanc Courchevel"],
+    events: ["Grand Prix de saut à ski de Courchevel"],
+    sights: ["Courchevel 1850","Lac du Praz","Courchevel La Tania"],
+  },
+};
+
+const placeGroups = [
+  ["hotels", "Hotels and chalets"],
+  ["events", "Local events"],
+  ["sights", "Places to visit"],
+] as const;
+
 const cannesHero: DestinationPhoto = {
   src: cannesPhotos[0].src,
   width: 1600,
@@ -242,6 +276,7 @@ export default function DestinationPage() {
   const page =
     destinations[pathname] ?? destinations["/cannes"];
 
+  const places = destinationPlaces[pathname];
   const photography = destinationPhotography[pathname];
   const heroPhoto = photography ? photography.photos[photography.heroIndex] : cannesHero;
 
@@ -385,6 +420,22 @@ export default function DestinationPage() {
           }))}
           note="Cannes scenery · illustrative images"
         />
+      )}
+
+      {places && (
+        <section className="destination-section destination-container" aria-labelledby="destination-places">
+          <h2 id="destination-places">Plan your journey</h2>
+          <div className="destination-grid-cards">
+            {placeGroups.map(([group, title]) => (
+              <div key={group}>
+                <h3>{title}</h3>
+                <ul className="list-disc ps-5">
+                  {places[group].map((name) => <li key={name}>{name}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       <section className="destination-section destination-soft">
