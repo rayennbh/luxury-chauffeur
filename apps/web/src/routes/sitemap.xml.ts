@@ -5,7 +5,7 @@ import { publicPages } from "@/data/public-pages";
 // Each listed page gained new or materially updated content or structured data
 // in this release. Update the corresponding date when a page changes again.
 const lastModified: Record<string, string> = {
-  "/": "2026-11-24",
+  "/": "2026-11-26",
   "/about": "2026-11-23",
   "/contact": "2026-11-23",
   "/terms": "2026-11-23",
