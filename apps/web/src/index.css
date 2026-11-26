@@ -1592,17 +1592,31 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
   border-radius: .5rem;
 }
 
-.luxury-home .journey-hotels a {
+.luxury-home .journey-hotels li {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: baseline;
-  column-gap: .75rem;
+  align-items: center;
+  gap: .25rem .75rem;
   border-top: 1px solid var(--line);
-  padding-block: .65rem;
+  padding-block: .35rem;
+}
+
+.luxury-home .journey-group h4 a,
+.luxury-home .journey-hotels a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.luxury-home .journey-hotels .journey-hotel-quote {
+  color: #a80048;
 }
 
 .luxury-home .journey-hotels small {
+  display: inline-block;
+  margin-inline-start: .5rem;
   color: var(--muted);
   font-size: .875rem;
 }

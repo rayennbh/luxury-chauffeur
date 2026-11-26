@@ -122,10 +122,15 @@ for (const { airportName, slug, destination } of airportTransfers) {
   airportJourneys.set(airportName, journeys);
 }
 
+const airportWebsites = new Map([
+  ["Nice Airport", "https://www.nice.aeroport.fr/en"],
+  ["Geneva Airport", "https://www.gva.ch/en/passengers"],
+]);
+
 const hotelDestinations = [
-  { name: "Carlton Cannes", place: "Cannes" },
-  { name: "Hôtel de Paris Monte-Carlo", place: "Monaco" },
-  { name: "Les Airelles Courchevel", place: "Courchevel" },
+  { name: "Carlton Cannes", place: "Cannes", website: "https://carltoncannes.com/en/" },
+  { name: "Hôtel de Paris Monte-Carlo", place: "Monaco", website: "https://www.montecarlosbm.com/fr/hotel-monaco/hotel-paris-monte-carlo" },
+  { name: "Les Airelles Courchevel", place: "Courchevel", website: "https://airelles.com/en/destination/courchevel-hotel" },
 ];
 
 const journeyBoard = `
@@ -140,24 +145,28 @@ const journeyBoard = `
         <div class="journey-panel">
           <h3>Airport departures</h3>
           <p>Choose your route to see pickup and transfer details.</p>
-          ${Array.from(airportJourneys, ([airport, journeys]) => `
+          ${Array.from(airportJourneys, ([airport, journeys]) => {
+            const website = airportWebsites.get(airport);
+            return `
             <div class="journey-group">
-              <h4>${airport}</h4>
+              <h4>${website ? `<a href="${website}">${airport}</a>` : airport}</h4>
               <ul class="journey-airports">
                 ${journeys.map(({ href, destination }) => `<li><a href="${href}">${destination}</a></li>`).join("")}
               </ul>
             </div>
-          `).join("")}
+          `;
+          }).join("")}
         </div>
         <div class="journey-panel">
           <h3>Hotels and chalets</h3>
-          <p>Choose an address to prefill the destination in your quote.</p>
           <ul class="journey-hotels">
-            ${hotelDestinations.map(({ name, place }) => `
+            ${hotelDestinations.map(({ name, place, website }) => `
               <li>
-                <a href="/?destination=${encodeURIComponent(name)}#booking">
-                  <span>${name}</span><small>${place}</small>
-                </a>
+                <div>
+                  <a href="${website}">${name}</a>
+                  <small>${place}</small>
+                </div>
+                <a class="journey-hotel-quote" href="/?destination=${encodeURIComponent(name)}#booking">Request a Quote</a>
               </li>
             `).join("")}
           </ul>
