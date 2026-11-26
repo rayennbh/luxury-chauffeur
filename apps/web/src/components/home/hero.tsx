@@ -131,7 +131,11 @@ const hotelDestinations = [
 const journeyBoard = `
   <section class="section journey-board" id="journeys" aria-labelledby="journey-title">
     <div class="container">
-      <div class="section-title"><h2 id="journey-title">Plan your journey</h2></div>
+      <div class="section-title"><h2 id="journey-title">Services and routes</h2></div>
+      <div class="journey-service-links">
+        <a id="transferLink" href="#booking">Transfers</a>
+        <a id="hourlyLink" href="#booking">Hourly Service</a>
+      </div>
       <div class="journey-columns">
         <div class="journey-panel">
           <h3>Airport departures</h3>
@@ -165,7 +169,7 @@ const journeyBoard = `
 
 const pageMarkup = markup
   .replaceAll("⟪email⟫", CONTACT_EMAIL)
-  .replace('<section class="cta" id="contact">', journeyBoard + '<section class="cta" id="contact">')
+  .replace('<span id="vehicules"></span>', journeyBoard + '<span id="vehicules"></span>')
   .replace(
     /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
     "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",
@@ -596,8 +600,7 @@ export function Hero() {
             </span>
           </a>
           <nav className="nav" id="nav" aria-label="Main navigation">
-            <a href="#booking" id="transferLink">Transfers</a>
-            <a href="#booking" id="hourlyLink">Hourly Service</a>
+            <a href="#journeys">Services</a>
             <a href="#fleet">Our Fleet</a>
             <a href="#destinations">Destinations</a>
             <a href="#contact">Contact</a>
