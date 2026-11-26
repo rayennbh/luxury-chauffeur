@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { vehicles } from "@/data/vehicles";
 import { SiteLanguageMenu } from "@/i18n/site-language";
 import { CONTACT_EMAIL } from "@/constants/site";
+import { NICE_AIRPORT_TO_CANNES_PATH } from "@/constants/transfer-routes";
+import { airportTransfers } from "@/data/airport-transfers";
 // Set your real reservation email, then activate it with FormSubmit before publishing.
 const BOOKING_EMAIL = CONTACT_EMAIL;
 
@@ -111,8 +113,59 @@ const destinationPaths: Record<string, string> = {
   Courchevel: "/courchevel",
 };
 
+const airportJourneys = new Map<string, { href: string; destination: string }[]>([
+  ["Nice Airport", [{ href: NICE_AIRPORT_TO_CANNES_PATH, destination: "Cannes" }]],
+]);
+for (const { airportName, slug, destination } of airportTransfers) {
+  const journeys = airportJourneys.get(airportName) ?? [];
+  journeys.push({ href: `/${slug}`, destination });
+  airportJourneys.set(airportName, journeys);
+}
+
+const hotelDestinations = [
+  { name: "Carlton Cannes", place: "Cannes" },
+  { name: "Hôtel de Paris Monte-Carlo", place: "Monaco" },
+  { name: "Les Airelles Courchevel", place: "Courchevel" },
+];
+
+const journeyBoard = `
+  <section class="section journey-board" id="journeys" aria-labelledby="journey-title">
+    <div class="container">
+      <div class="section-title"><h2 id="journey-title">Plan your journey</h2></div>
+      <div class="journey-columns">
+        <div class="journey-panel">
+          <h3>Airport departures</h3>
+          <p>Choose your route to see pickup and transfer details.</p>
+          ${Array.from(airportJourneys, ([airport, journeys]) => `
+            <div class="journey-group">
+              <h4>${airport}</h4>
+              <ul class="journey-airports">
+                ${journeys.map(({ href, destination }) => `<li><a href="${href}">${destination}</a></li>`).join("")}
+              </ul>
+            </div>
+          `).join("")}
+        </div>
+        <div class="journey-panel">
+          <h3>Hotels and chalets</h3>
+          <p>Choose an address to prefill the destination in your quote.</p>
+          <ul class="journey-hotels">
+            ${hotelDestinations.map(({ name, place }) => `
+              <li>
+                <a href="/?destination=${encodeURIComponent(name)}#booking">
+                  <span>${name}</span><small>${place}</small>
+                </a>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
 const pageMarkup = markup
   .replaceAll("⟪email⟫", CONTACT_EMAIL)
+  .replace('<section class="cta" id="contact">', journeyBoard + '<section class="cta" id="contact">')
   .replace(
     /<div class="eyebrow">PRIVATE CHAUFFEUR[^<]*<\/div><h1>[\s\S]*?<\/h1>/,
     "<h1>Private Chauffeur<br>on the French Riviera <em>&amp;</em> in the Alps</h1>",

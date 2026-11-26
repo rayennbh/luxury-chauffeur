@@ -1492,3 +1492,94 @@ body:has(.destination-page) .luxury-chauffeur-wordmark small {
     background-image: url("/images/home/hero-mobile.webp");
   }
 }
+
+/* Airport and hotel links on the home page */
+.luxury-home .journey-board .journey-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.luxury-home .journey-panel {
+  border: 1px solid #ebdde4;
+  border-top: 3px solid var(--pink);
+  border-radius: 1rem;
+  background: #fff;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.luxury-home .journey-panel h3 {
+  font: 600 clamp(1.4rem, 2.5vw, 1.9rem) "Playfair Display", serif;
+  margin: 0 0 .5rem;
+}
+
+.luxury-home .journey-panel p {
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.luxury-home .journey-group {
+  border-top: 1px solid var(--line);
+  padding-block: .75rem;
+}
+
+.luxury-home .journey-group h4 {
+  margin: 0 0 .35rem;
+}
+
+.luxury-home .journey-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.luxury-home .journey-airports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.luxury-home .journey-panel a {
+  color: var(--ink);
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.luxury-home .journey-panel a:is(:hover, :focus-visible) {
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.luxury-home .journey-panel a:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+
+.luxury-home .journey-airports a {
+  display: inline-flex;
+  align-items: center;
+  background: var(--soft);
+  padding-inline: .75rem;
+  border-radius: .5rem;
+}
+
+.luxury-home .journey-hotels a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: .75rem;
+  border-top: 1px solid var(--line);
+  padding-block: .65rem;
+}
+
+.luxury-home .journey-hotels small {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+@media (max-width: 700px) {
+  .luxury-home .journey-board .journey-columns {
+    grid-template-columns: 1fr;
+  }
+}
