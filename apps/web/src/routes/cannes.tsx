@@ -331,6 +331,14 @@ export default function DestinationPage() {
 
           <p>{page.intro}</p>
 
+          {pathname === "/cannes" && (
+            <p>
+              <a className="destination-text-link" href={NICE_AIRPORT_TO_CANNES_PATH}>
+                {NICE_AIRPORT_TO_CANNES_TITLE} ↗
+              </a>
+            </p>
+          )}
+
           {featuredTransfer && (
             <p>
               <a className="destination-text-link" href={`/${featuredTransfer.slug}`}>
@@ -396,7 +404,7 @@ export default function DestinationPage() {
           ))}
         </div>
 
-        {(pathname === "/cannes" || pathname === "/nice") && (
+        {(pathname === "/nice") && (
           <a className="destination-text-link" href={NICE_AIRPORT_TO_CANNES_PATH}>
             {NICE_AIRPORT_TO_CANNES_TITLE} ↗
           </a>
