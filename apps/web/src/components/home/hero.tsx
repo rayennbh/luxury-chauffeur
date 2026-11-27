@@ -125,6 +125,7 @@ for (const { airportName, slug, destination } of airportTransfers) {
 
 const airportWebsites = new Map([
   ["Nice Airport", "https://www.nice.aeroport.fr/en"],
+  ["Lyon Airport", "https://www.lyonaeroports.com/en"],
   ["Geneva Airport", "https://www.gva.ch/en/passengers"],
 ]);
 

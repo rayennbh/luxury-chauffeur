@@ -100,4 +100,25 @@ export const airportTransfers: AirportTransfer[] = [
       },
     ],
   },
+  {
+    slug: "lyon-airport-to-courchevel",
+    title: "Lyon Airport to Courchevel Private Transfer",
+    description: "Request a private chauffeur from Lyon Saint-Exupéry Airport (LYS) to your hotel or chalet in Courchevel. Share your flight details and ski luggage for a quote.",
+    pickup: "Lyon Saint-Exupéry Airport (LYS)",
+    airportName: "Lyon Airport",
+    destination: "Courchevel",
+    destinationPath: "/courchevel",
+    intro: "Arrange a private transfer from Lyon Saint-Exupéry Airport to your hotel or chalet in Courchevel. Share your flight number, resort address and ski luggage for a quote.",
+    arrival: {
+      heading: "Hotel and chalet drop-offs",
+      details: "Include the village and the full address. Ask your accommodation provider about the best meeting point if the chalet has restricted vehicle access.",
+    },
+    luggage: "List your suitcases, ski bags and snowboards separately. Include any child seat requirements so the team can confirm capacity for the whole group.",
+    questions: [
+      {
+        question: "Can I request a return transfer to Lyon Airport?",
+        answer: "Share your hotel or chalet pickup address, your departure time and the flight number. Your chauffeur can confirm the pickup time before you book.",
+      },
+    ],
+  },
 ];
