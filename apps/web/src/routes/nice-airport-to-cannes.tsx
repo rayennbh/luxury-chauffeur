@@ -69,6 +69,7 @@ export default function NiceAirportToCannes() {
               Include your flight number and arrival time. The meeting point and any
               luggage assistance can be agreed before travel.
             </p>
+            <p>If you know whether your flight arrives at Terminal 1 or Terminal 2, include it in your request.</p>
           </article>
           <article>
             <h3>Choosing a vehicle</h3>
