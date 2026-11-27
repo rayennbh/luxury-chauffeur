@@ -32,7 +32,7 @@ export const airportTransfers: AirportTransfer[] = [
     intro: "Arrange a chauffeur from Nice Côte d’Azur Airport to a hotel in Monte-Carlo, a residence in Monaco or a meeting point near Port Hercule.",
     arrival: {
       heading: "Hotel and port drop-offs",
-      details: "Share your hotel entrance or marina meeting point. If you are joining a yacht, include the berth or the name of the person meeting you at the port.",
+      details: "For hotel drop-offs in Monte-Carlo, share the hotel name and the entrance your chauffeur should use. For Port Hercule, send the yacht name and berth number if known, and confirm the vehicle meeting point with your yacht contact.",
     },
     luggage: "Share your passenger and luggage counts. Mention extra bags or a child seat request so the team can confirm a suitable vehicle.",
     questions: [

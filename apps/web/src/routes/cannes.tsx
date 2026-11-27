@@ -234,6 +234,11 @@ const placeGroups = [
   ["sights", "Places to visit"],
 ] as const;
 
+const featuredTransferSlugs: Record<string, string> = {
+  "/courchevel": "geneva-airport-to-courchevel",
+  "/monaco": "nice-airport-to-monaco",
+};
+
 const cannesHero: DestinationPhoto = {
   src: cannesPhotos[0].src,
   width: 1600,
@@ -278,9 +283,9 @@ export default function DestinationPage() {
     destinations[pathname] ?? destinations["/cannes"];
 
   const places = destinationPlaces[pathname];
-  const featuredTransfer = pathname === "/courchevel"
-    ? airportTransfers.find(({ slug }) => slug === "geneva-airport-to-courchevel")
-    : undefined;
+  const featuredTransfer = airportTransfers.find(({ slug }) =>
+    slug === featuredTransferSlugs[pathname],
+  );
   const photography = destinationPhotography[pathname];
   const heroPhoto = photography ? photography.photos[photography.heroIndex] : cannesHero;
 
