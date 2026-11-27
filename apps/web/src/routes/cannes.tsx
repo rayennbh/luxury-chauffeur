@@ -278,6 +278,9 @@ export default function DestinationPage() {
     destinations[pathname] ?? destinations["/cannes"];
 
   const places = destinationPlaces[pathname];
+  const featuredTransfer = pathname === "/courchevel"
+    ? airportTransfers.find(({ slug }) => slug === "geneva-airport-to-courchevel")
+    : undefined;
   const photography = destinationPhotography[pathname];
   const heroPhoto = photography ? photography.photos[photography.heroIndex] : cannesHero;
 
@@ -327,6 +330,14 @@ export default function DestinationPage() {
           </h1>
 
           <p>{page.intro}</p>
+
+          {featuredTransfer && (
+            <p>
+              <a className="destination-text-link" href={`/${featuredTransfer.slug}`}>
+                {featuredTransfer.title} ↗
+              </a>
+            </p>
+          )}
 
           <div className="destination-actions">
             <a
@@ -391,7 +402,8 @@ export default function DestinationPage() {
           </a>
         )}
         {airportTransfers
-          .filter(({ pickupPath, destinationPath }) => pickupPath === pathname || destinationPath === pathname)
+          .filter((transfer) => transfer !== featuredTransfer &&
+            (transfer.pickupPath === pathname || transfer.destinationPath === pathname))
           .map(({ slug, title }) => (
             <div key={slug}>
               <a className="destination-text-link" href={`/${slug}`}>
