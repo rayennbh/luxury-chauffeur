@@ -17,7 +17,7 @@ const lastModified: Record<string, string> = {
   "/nice-airport-to-cannes": "2026-11-23",
   "/nice-airport-to-monaco": "2026-11-23",
   "/nice-airport-to-saint-tropez": "2026-11-23",
-  "/geneva-airport-to-courchevel": "2026-11-23",
+  "/geneva-airport-to-courchevel": "2026-11-27",
 };
 
 function escapeXml(value: string) {

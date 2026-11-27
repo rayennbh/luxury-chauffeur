@@ -87,6 +87,10 @@ export const airportTransfers: AirportTransfer[] = [
     luggage: "List your suitcases, ski bags and snowboards separately. Include any child seat requirements so the team can confirm capacity for the whole group.",
     questions: [
       {
+        question: "Where do I meet my chauffeur at Geneva Airport?",
+        answer: "Send your flight number and arrival time, and tell us if you plan to exit through the France Sector. Confirm the arrivals exit and meeting point with your chauffeur before you travel.",
+      },
+      {
         question: "Can snow affect the pickup or arrival time?",
         answer: "Mountain weather and road conditions can affect the journey. Share any check-in deadline and confirm the pickup arrangements and winter equipment with the team before travel.",
       },
