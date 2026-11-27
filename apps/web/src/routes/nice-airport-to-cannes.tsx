@@ -66,8 +66,8 @@ export default function NiceAirportToCannes() {
           <article>
             <h3>Meeting your chauffeur at NCE</h3>
             <p>
-              Include your flight number and arrival time. The meeting point and any
-              luggage assistance can be agreed before travel.
+              Send your flight number and arrival time, and confirm where to meet your chauffeur in
+              the arrivals hall before you travel. Let us know if you need help with luggage.
             </p>
             <p>If you know whether your flight arrives at Terminal 1 or Terminal 2, include it in your request.</p>
           </article>
@@ -82,8 +82,10 @@ export default function NiceAirportToCannes() {
           <article>
             <h3>Arriving in Cannes</h3>
             <p>
-              Share the exact drop-off address. For festival and conference dates,
-              ask about access restrictions near La Croisette and the Palais des Festivals.
+              For a hotel, share its name and preferred entrance. For the Palais des Festivals,
+              include the event name and the entrance or drop-off point specified by your organiser.
+              For the Vieux-Port, share the quay or berth number if known. During festivals, confirm
+              vehicle access before you travel.
             </p>
           </article>
         </div>

@@ -32,7 +32,7 @@ const destinations: Record<string, Destination> = {
     description:
       "Request a private chauffeur in Cannes for Nice Airport transfers, hotel arrivals, hourly hire and event transport. Receive a personalised quotation.",
     intro:
-      "Arrange a private driver in Cannes for a hotel pickup on La Croisette, an event at the Palais des Festivals or an hourly booking between meetings. For arrivals at Nice Airport, share your flight and final address in Cannes.",
+      "Book a private chauffeur in Cannes for hotel pickups on La Croisette, events at the Palais des Festivals or hourly hire for several stops. Arriving at Nice Airport? Share your flight details and your drop-off address in Cannes.",
 
     services: [
       [
